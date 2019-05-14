@@ -2,7 +2,25 @@
 //  DYFCodeScannerPreView.m
 //
 //  Created by dyf on 2018/01/28.
-//  Copyright © 2018年 dyf. All rights reserved.
+//  Copyright © 2018 dyf. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 //
 
 #import "DYFCodeScannerPreView.h"
@@ -49,9 +67,7 @@
     self.userInteractionEnabled = YES;
     
     self.transparentArea = CGSizeMake(280, 280);
-    
     [self addPinchGestureRecognizer];
-    
     [self addLine];
     [self addItems];
     [self addTipLabel];
@@ -130,9 +146,7 @@
 
 - (void)shouldReceiveZoom:(UIPinchGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        
-        if (DYFCRespondsToMethod(self.delegate, zoom:)) {
-            
+        if (DYFRespondsToMethod(self.delegate, zoom:)) {
             if (recognizer.scale < 1.f) {
                 recognizer.scale = 1.f;
             }
@@ -142,7 +156,6 @@
             }
             
             [self.delegate zoom:recognizer.scale];
-            
         }
     }
 }
@@ -152,7 +165,7 @@
     
     switch (index) {
         case 0: {
-            if (DYFCRespondsToMethod(self.delegate, back)) {
+            if (DYFRespondsToMethod(self.delegate, back)) {
                 [self.delegate back];
             }
             break;
@@ -160,21 +173,21 @@
             
         case 1: {
             sender.selected = !sender.selected;
-            if (DYFCRespondsToMethod(self.delegate, openTorch)) {
+            if (DYFRespondsToMethod(self.delegate, openTorch)) {
                 [self.delegate openTorch];
             }
             break;
         }
             
         case 2: {
-            if (DYFCRespondsToMethod(self.delegate, openPhotoLibrary)) {
+            if (DYFRespondsToMethod(self.delegate, openPhotoLibrary)) {
                 [self.delegate openPhotoLibrary];
             }
             break;
         }
             
         case 3: {
-            if (DYFCRespondsToMethod(self.delegate, queryHistory)) {
+            if (DYFRespondsToMethod(self.delegate, queryHistory)) {
                 [self.delegate queryHistory];
             }
             break;
@@ -219,13 +232,12 @@
     
     [UIView animateWithDuration:2.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        _lineImgView.transform = CGAffineTransformMakeTranslation(0, self.transparentArea.height - 20);
-        
+        self.lineImgView.transform = CGAffineTransformMakeTranslation(0, self.transparentArea.height - 20);
+
     } completion:^(BOOL finished) {
         
-        _lineImgView.transform = CGAffineTransformIdentity;
+        self.lineImgView.transform = CGAffineTransformIdentity;
         [self startAnimation];
-        
     }];
 }
 
@@ -240,7 +252,6 @@
         
         [self layoutLine];
         [self layoutTipLabel];
-        
         [self startAnimation];
     }
 }

@@ -2,7 +2,25 @@
 //  DYFCodeScannerViewController.m
 //
 //  Created by dyf on 2018/01/28.
-//  Copyright © 2018年 dyf. All rights reserved.
+//  Copyright © 2018 dyf. All rights reserved.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 //
 
 #import "DYFCodeScannerViewController.h"
@@ -11,8 +29,8 @@
 #import "UIImage+DYFQRExtension.h"
 
 @interface DYFCodeScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, DYFCodeScannerPreViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-@property (nonatomic, strong) AVCaptureSession     *session; // 会话
-@property (nonatomic, strong) AVCaptureDeviceInput *input;   // 输入流
+@property (nonatomic, strong) AVCaptureSession     *session;  // 会话
+@property (nonatomic, strong) AVCaptureDeviceInput *input;    // 输入流
 @property (nonatomic, strong) DYFCodeScannerPreView *preView; // 预览视图
 @property (nonatomic, assign) UIStatusBarStyle     originStatusBarStyle;
 @end
@@ -55,30 +73,25 @@
 }
 
 - (void)setTips {
-    if (self.tipStr && self.tipStr.length > 0) {
-        self.preView.tipLabel.text = self.tipStr;
+    if (self.tips && self.tips.length > 0) {
+        self.preView.tipLabel.text = self.tips;
     }
 }
 
 - (void)requestAccess {
     @DYFWeakObject(self)
-    
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            
             if (granted) {
                 [weak_self addScanView];
             } else {
                 NSString *msg = @"请在“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
-                
                 if (weak_self.resultHandler) {
                     weak_self.resultHandler(NO, msg);
                 }
-                
-                DYFLog(@"E | %@", msg);
+                DYFLog(@"[W]: %@", msg);
             }
-            
         });
     }];
 }
@@ -86,23 +99,21 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.originStatusBarStyle = [UIApplication sharedApplication].statusBarStyle;
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    self.originStatusBarStyle = DYFSharedApp.statusBarStyle;
+    [DYFSharedApp setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     if (self.session) {
         [self.session startRunning];
     }
     
     [self.preView startScan];
-    
     [self setNavigationBarHidden:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [[UIApplication sharedApplication] setStatusBarStyle:self.originStatusBarStyle animated:YES];
+    [DYFSharedApp setStatusBarStyle:self.originStatusBarStyle animated:YES];
     
     if (self.session) {
         [self.session stopRunning];
@@ -237,13 +248,10 @@
 
 - (void)checkTorch {
     AVCaptureDevice *device = self.input.device;
-    
     [device lockForConfiguration:nil];
-    
     if ([device hasTorch]) {
         [self.preView showTorchButton];
     }
-    
     [device unlockForConfiguration];
 }
 
@@ -257,21 +265,16 @@
 - (void)openTorch {
     DYFLog();
     AVCaptureDevice *device = self.input.device;
-    
     // 锁定
     [device lockForConfiguration:nil];
-    
     // 判定是否有闪光灯
     if ([device hasTorch]) {
-        
         if (device.torchMode == AVCaptureTorchModeOff) {
             device.torchMode = AVCaptureTorchModeOn;
         } else if (device.torchMode == AVCaptureTorchModeOn) {
             device.torchMode = AVCaptureTorchModeOff;
         }
-        
     }
-    
     // 解锁
     [device unlockForConfiguration];
 }
@@ -291,12 +294,11 @@
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         ipc.delegate = self;
-        
         [self presentViewController:ipc animated:YES completion:NULL];
         
     } else {
         
-        DYFLog(@"W | ImagePicker: SourceType is not available.");
+        DYFLog(@"[W] | ImagePicker: SourceType is not available.");
     }
 }
 
@@ -306,9 +308,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        
         NSString *qrCodeMsg = image.QRCodeString;
-        
         DYFLog(@"OriginalImage: %@, QRCode message: %@", image, qrCodeMsg);
         
         [self captureOutputWithCompletion:^{
@@ -316,7 +316,6 @@
                 self.resultHandler(qrCodeMsg ? YES : NO, qrCodeMsg);
             }
         }];
-        
     });
 }
 
