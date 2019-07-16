@@ -1,5 +1,5 @@
 //
-//  DYFCreateQRCodeView.m
+//  DYFQRCodeImageView.m
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,52 +23,52 @@
 // THE SOFTWARE.
 //
 
-#import "DYFCreateQRCodeView.h"
+#import "DYFQRCodeImageView.h"
 #import "DYFCodeScannerMacros.h"
 
-@implementation DYFCreateQRCodeView
+@implementation DYFQRCodeImageView
 
-+ (instancetype)createWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue {
-    return [self createWithFrame:frame withStringValue:stringValue withCenterImage:nil];
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue {
+    return [self createWithFrame:frame stringValue:stringValue centerImage:nil];
 }
 
-+ (instancetype)createWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withCenterImage:(UIImage *)centerImage {
-    return [[self alloc] initWithFrame:frame withStringValue:stringValue withCenterImage:centerImage];
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage {
+    return [[self alloc] initWithFrame:frame stringValue:stringValue centerImage:centerImage];
 }
 
-+ (instancetype)createWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withBackgroudColor:(UIColor *)backgroudColor withForegroudColor:(UIColor *)foregroudColor {
-    return [self createWithFrame:frame withStringValue:stringValue withBackgroudColor:backgroudColor withForegroudColor:foregroudColor withCenterImage:nil];
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor {
+    return [self createWithFrame:frame stringValue:stringValue backgroudColor:backgroudColor foregroudColor:foregroudColor centerImage:nil];
 }
 
-+ (instancetype)createWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withBackgroudColor:(UIColor *)backgroudColor withForegroudColor:(UIColor *)foregroudColor withCenterImage:(UIImage *)centerImage {
-    return [[self alloc] initWithFrame:frame withStringValue:stringValue withBackgroudColor:backgroudColor withForegroudColor:foregroudColor withCenterImage:centerImage];
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage {
+    return [[self alloc] initWithFrame:frame stringValue:stringValue backgroudColor:backgroudColor foregroudColor:foregroudColor centerImage:centerImage];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue {
-    return [self initWithFrame:frame withStringValue:stringValue withCenterImage:nil];
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue {
+    return [self initWithFrame:frame stringValue:stringValue centerImage:nil];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withCenterImage:(UIImage *)centerImage {
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage {
     self = [super initWithFrame:frame];
     if (self) {
-        [self generateQRCodeWithStringValue:stringValue withCenterImage:centerImage];
+        [self generateQRCodeWithStringValue:stringValue centerImage:centerImage];
     }
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withBackgroudColor:(UIColor *)backgroudColor withForegroudColor:(UIColor *)foregroudColor {
-    return [self initWithFrame:frame withStringValue:stringValue withBackgroudColor:backgroudColor withForegroudColor:foregroudColor withCenterImage:nil];
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor {
+    return [self initWithFrame:frame stringValue:stringValue backgroudColor:backgroudColor foregroudColor:foregroudColor centerImage:nil];
 }
 
-- (instancetype)initWithFrame:(CGRect)frame withStringValue:(NSString *)stringValue withBackgroudColor:(UIColor *)backgroudColor withForegroudColor:(UIColor *)foregroudColor withCenterImage:(UIImage *)centerImage {
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage {
     self = [super initWithFrame:frame];
     if (self) {
-        [self generateQRCodeWithStringValue:stringValue withBackgroudColor:backgroudColor withForegroudColor:foregroudColor withCenterImage:centerImage];
+        [self generateQRCodeWithStringValue:stringValue backgroudColor:backgroudColor foregroudColor:foregroudColor centerImage:centerImage];
     }
     return self;
 }
 
-- (void)generateQRCodeWithStringValue:(NSString *)stringValue withCenterImage:(UIImage *)centerImage {
+- (void)generateQRCodeWithStringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage {
     // 创建二维码过滤器
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setDefaults];
@@ -76,8 +76,8 @@
     // 生成二维码
     NSData *data = [stringValue dataUsingEncoding:NSUTF8StringEncoding];
     [qrFilter setValue:data forKey:@"inputMessage"];
-    CIImage *codeImage = qrFilter.outputImage;
     
+    CIImage *codeImage = qrFilter.outputImage;
     // 拉伸
     codeImage = [codeImage imageByApplyingTransform:CGAffineTransformMakeScale(9, 9)];
     
@@ -87,9 +87,9 @@
     [qrImage drawInRect:CGRectMake(0, 0, qrImage.size.width, qrImage.size.height)];
     
     if (centerImage) {
-        CGFloat meImgX = (qrImage.size.width - DYFQRMeImageW)*0.5;
-        CGFloat meImgY = (qrImage.size.height - DYFQRMeImageH)*0.5;
-        [centerImage drawInRect:CGRectMake(meImgX, meImgY, DYFQRMeImageW, DYFQRMeImageH)];
+        CGFloat meImgX = (qrImage.size.width  - DYFQRCodeMeImageW)/2.f;
+        CGFloat meImgY = (qrImage.size.height - DYFQRCodeMeImageH)/2.f;
+        [centerImage drawInRect:CGRectMake(meImgX, meImgY, DYFQRCodeMeImageW, DYFQRCodeMeImageH)];
     }
     
     // 获取绘制好的二维码
@@ -98,7 +98,7 @@
     UIGraphicsEndImageContext();
 }
 
-- (void)generateQRCodeWithStringValue:(NSString *)stringValue withBackgroudColor:(UIColor *)backgroudColor withForegroudColor:(UIColor *)foregroudColor withCenterImage:(UIImage *)centerImage {
+- (void)generateQRCodeWithStringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage {
     // 创建二维码过滤器
     CIFilter *qrFilter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     [qrFilter setDefaults];
@@ -134,9 +134,9 @@
     [qrImage drawInRect:CGRectMake(0, 0, qrImage.size.width, qrImage.size.height)];
     
     if (centerImage) {
-        CGFloat meImgX = (qrImage.size.width - DYFQRMeImageW)*0.5;
-        CGFloat meImgY = (qrImage.size.height - DYFQRMeImageH)*0.5;
-        [centerImage drawInRect:CGRectMake(meImgX, meImgY, DYFQRMeImageW, DYFQRMeImageH)];
+        CGFloat meImgX = (qrImage.size.width  - DYFQRCodeMeImageW)/2.f;
+        CGFloat meImgY = (qrImage.size.height - DYFQRCodeMeImageH)/2.f;
+        [centerImage drawInRect:CGRectMake(meImgX, meImgY, DYFQRCodeMeImageW, DYFQRCodeMeImageH)];
     }
     
     // 获取绘制好的二维码

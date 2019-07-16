@@ -25,6 +25,10 @@
 
 #import "DYFCodeScannerPreView.h"
 #import "DYFCodeScannerMacros.h"
+#import "UIButton+Additional.h"
+
+#define ItemW                  40.f
+#define ItemH                  40.f
 
 @interface DYFCodeScannerPreView ()
 @property (nonatomic, strong) UIImageView *lineImgView;
@@ -49,110 +53,97 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    
     if (self) {
-        [self initConfig];
+        [self configure];
     }
-    
     return self;
 }
 
-- (void)initConfig {
-    self.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin|
-                             UIViewAutoresizingFlexibleWidth     |
-                             UIViewAutoresizingFlexibleTopMargin |
-                             UIViewAutoresizingFlexibleHeight);
-    
-    self.backgroundColor = [UIColor clearColor];
+- (void)configure {
+    self.autoresizingMask       = (UIViewAutoresizingFlexibleLeftMargin |
+                                   UIViewAutoresizingFlexibleWidth      |
+                                   UIViewAutoresizingFlexibleTopMargin  |
+                                   UIViewAutoresizingFlexibleHeight);
+    self.backgroundColor        = [UIColor clearColor];
     self.userInteractionEnabled = YES;
     
-    self.transparentArea = CGSizeMake(280, 280);
-    [self addPinchGestureRecognizer];
+    self.transparentArea        = CGSizeMake(280, 280);
+    self.hasNavigationBar       = NO;
+    
     [self addLine];
-    [self addItems];
     [self addTipLabel];
+    [self addItems];
+    
+    [self gr_addPinch];
 }
 
 - (void)addLine {
     [self addSubview:self.lineImgView];
 }
 
-- (void)addItems {
-    CGSize viewSize = self.bounds.size;
-    
-    CGFloat itemSpace = 15.f;
-    CGFloat itemW = 36.f;
-    CGFloat itemH = 36.f;
-    CGFloat itemY = (DYFStatusBarHeight > 20.f) ? 44.f : 34.f;
-    
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(itemSpace, itemY, itemW, itemH)];
-    [backButton setImage:DYFBundleImageNamed(@"code_scanner_back") forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = 10;
-    backButton.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    backButton.layer.cornerRadius = itemH/2;
-    backButton.layer.masksToBounds = YES;
-    [self addSubview:backButton];
-    
-    UIButton *historyButton = [[UIButton alloc] initWithFrame:CGRectMake(viewSize.width-itemSpace-itemW, itemY, itemW, itemH)];
-    [historyButton setImage:DYFBundleImageNamed(@"code_scanner_history") forState:UIControlStateNormal];
-    [historyButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
-    historyButton.tag = 13;
-    historyButton.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    historyButton.layer.cornerRadius = itemH/2;
-    historyButton.layer.masksToBounds = YES;
-    historyButton.hidden = YES;
-    historyButton.showsTouchWhenHighlighted = YES;
-    [self addSubview:historyButton];
-    
-    CGFloat rx = historyButton.hidden ? viewSize.width: historyButton.frame.origin.x;
-    
-    UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(rx-itemSpace-itemW, itemY, itemW, itemH)];
-    [photoButton setImage:DYFBundleImageNamed(@"code_scanner_photo") forState:UIControlStateNormal];
-    [photoButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
-    photoButton.tag = 12;
-    photoButton.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    photoButton.layer.cornerRadius = itemH/2;
-    photoButton.layer.masksToBounds = YES;
-    photoButton.showsTouchWhenHighlighted = YES;
-    [self addSubview:photoButton];
-    
-    UIButton *torchButton = [[UIButton alloc] initWithFrame:CGRectMake(photoButton.frame.origin.x-itemSpace-itemW, itemY, itemW, itemH)];
-    [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch") forState:UIControlStateNormal];
-    [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch_on") forState:UIControlStateSelected];
-    [torchButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
-    torchButton.tag = 11;
-    torchButton.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    torchButton.layer.cornerRadius = itemH/2;
-    torchButton.layer.masksToBounds = YES;
-    torchButton.hidden = YES;
-    [self addSubview:torchButton];
-}
-
 - (void)addTipLabel {
     self.tipLabel.backgroundColor = [UIColor clearColor];
-    self.tipLabel.numberOfLines = 0;
-    self.tipLabel.textColor = [UIColor whiteColor];
+    self.tipLabel.numberOfLines = 1;
+    self.tipLabel.font = [UIFont systemFontOfSize:13.f];
+    self.tipLabel.textColor = [UIColor colorWithWhite:0.8f alpha:1.f];
     self.tipLabel.textAlignment = NSTextAlignmentCenter;
-    self.tipLabel.font = [UIFont systemFontOfSize:14.f];
-    
     [self addSubview:self.tipLabel];
 }
 
-- (void)addPinchGestureRecognizer {
-    UIPinchGestureRecognizer *pinchGR = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(shouldReceiveZoom:)];
-    [self addGestureRecognizer:pinchGR];
+- (void)addItems {
+    UIButton *backButton = [[UIButton alloc] init];
+    [backButton setImage:DYFBundleImageNamed(@"code_scanner_back") forState:UIControlStateNormal];
+    [backButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    backButton.tag = 9;
+    [self addSubview:backButton];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.tag = 10;
+    titleLabel.textColor = [UIColor whiteColor];
+    titleLabel.numberOfLines = 1;
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont boldSystemFontOfSize:17.f];
+    [self addSubview:titleLabel];
+    
+    UIButton *torchButton = [[UIButton alloc] init];
+    [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch") forState:UIControlStateNormal];
+    [torchButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    torchButton.tag = 11;
+    torchButton.showsTouchWhenHighlighted = YES;
+    [self addSubview:torchButton];
+    
+    UIButton *photoButton = [[UIButton alloc] init];
+    [photoButton setImage:DYFBundleImageNamed(@"code_scanner_photo") forState:UIControlStateNormal];
+    [photoButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    photoButton.tag = 12;
+    photoButton.showsTouchWhenHighlighted = YES;
+    [self addSubview:photoButton];
+    
+    UIButton *historyButton = [[UIButton alloc] init];
+    [historyButton setImage:DYFBundleImageNamed(@"code_scanner_history") forState:UIControlStateNormal];
+    [historyButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    historyButton.tag = 13;
+    historyButton.hidden = YES;
+    historyButton.showsTouchWhenHighlighted = YES;
+    [self addSubview:historyButton];
 }
 
-- (void)shouldReceiveZoom:(UIPinchGestureRecognizer *)recognizer {
+- (void)gr_addPinch {
+    UIPinchGestureRecognizer *gr_pinch = [[UIPinchGestureRecognizer alloc] init];
+    [gr_pinch addTarget:self action:@selector(pinchAction:)];
+    [self addGestureRecognizer:gr_pinch];
+}
+
+- (void)pinchAction:(UIPinchGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
         if (DYFRespondsToMethod(self.delegate, zoom:)) {
             if (recognizer.scale < 1.f) {
                 recognizer.scale = 1.f;
             }
             
-            if (recognizer.scale > 3.f) {
-                recognizer.scale = 3.f;
+            if (recognizer.scale > 6.f) {
+                recognizer.scale = 6.f;
             }
             
             [self.delegate zoom:recognizer.scale];
@@ -160,11 +151,114 @@
     }
 }
 
+- (void)setTitle:(NSString *)title {
+    UILabel *titleLabel = [self viewWithTag:10];
+    titleLabel.text = title;
+    DYFLog(@"title: %@", titleLabel.text);
+}
+
+- (NSString *)title {
+    UILabel *titleLabel = [self viewWithTag:10];
+    return titleLabel.text;
+}
+
+- (void)setHasTorch:(BOOL)hasTorch {
+    _hasTorch = hasTorch;
+    UIButton *torchButton = [self viewWithTag:11];
+    if (hasTorch) {
+        [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch_on") forState:UIControlStateSelected];
+    }
+}
+
+- (void)updateLayout {
+    DYFLog();
+    [self layoutLine];
+    [self layoutTipLabel];
+    
+    CGSize  vSize           = self.bounds.size;
+    
+    UIButton *backButton    = [self viewWithTag: 9];
+    UILabel  *titleLabel    = [self viewWithTag:10];
+    UIButton *torchButton   = [self viewWithTag:11];
+    UIButton *photoButton   = [self viewWithTag:12];
+    UIButton *historyButton = [self viewWithTag:13];
+    
+    if (self.hasNavigationBar) {
+        backButton.hidden = YES;
+        titleLabel.hidden = YES;
+    }
+    
+    if (!backButton.hidden) {
+        CGFloat dt       =  8.f;
+        CGFloat backBtnX = 12.f;
+        CGFloat backBtnY = (DYFStatusBarHeight > 20.f) ? 44.f : 34.f;
+        backButton.frame = CGRectMake(backBtnX, backBtnY, ItemW - dt, ItemH - dt);
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(3, -2, 3, 2);
+        
+        CGFloat titleLabX = backBtnX + ItemW - dt + 10.f;
+        CGFloat titleLabY = backButton.frame.origin.y;
+        CGFloat titleLabW = vSize.width - 2*titleLabX;
+        titleLabel.frame = CGRectMake(titleLabX, titleLabY, titleLabW, ItemH - dt);
+    }
+    
+    UIColor *fillColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+    
+    CGFloat tipLabY = self.tipLabel.frame.origin.y;
+    CGFloat tipLabH = self.tipLabel.frame.size.height;
+    
+    CGFloat torchBtnX = (vSize.width - self.transparentArea.width)/2.f;
+    CGFloat torchBtnY = tipLabY + tipLabH + 30.f;
+    torchButton.frame = CGRectMake(torchBtnX, torchBtnY, ItemW, ItemH);
+    torchButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+    
+    CGFloat photoBtnX = (vSize.width - ItemW)/2.f;
+    CGFloat photoBtnY = torchButton.frame.origin.y;
+    if (historyButton.hidden) {
+        photoBtnX = (vSize.width + self.transparentArea.width)/2.f - ItemW;
+    }
+    photoButton.frame = CGRectMake(photoBtnX, photoBtnY, ItemW, ItemH);
+    photoButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+    
+    if (!historyButton.hidden) {
+        CGFloat historyBtnX = (vSize.width + self.transparentArea.width)/2.f - ItemW;
+        CGFloat historyBtnY = torchButton.frame.origin.y;
+        historyButton.frame = CGRectMake(historyBtnX, historyBtnY, ItemW, ItemH);
+        historyButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+    }
+}
+
+- (void)layoutLine {
+    CGFloat vW = self.bounds.size.width;
+    CGFloat vH = self.bounds.size.height;
+    CGFloat tH = self.transparentArea.height;
+    
+    CGFloat dw = 260.f;
+    CGFloat dh = 2.f;
+    CGFloat dx = (vW - dw)/2;
+    CGFloat dy = vH/2 - tH/2 - 20.f;
+    
+    self.lineImgView.frame = CGRectMake(dx, dy, dw, dh);
+}
+
+- (void)layoutTipLabel {
+    CGFloat vW = self.bounds.size.width;
+    CGFloat vH = self.bounds.size.height;
+    CGFloat tW = self.transparentArea.width;
+    CGFloat tH = self.transparentArea.height;
+    
+    CGFloat dw = tW + 40.f;
+    CGFloat dh = [self heightForString:self.tipLabel andWidth:dw];
+    CGFloat dx = (vW - dw)/2;
+    CGFloat dy = vH/2 + tH/2 - 20.f;
+    
+    self.tipLabel.frame = CGRectMake(dx, dy, dw, dh);
+}
+
 - (void)itemDidClicked:(UIButton *)sender {
     NSInteger index = sender.tag - 10;
     
     switch (index) {
-        case 0: {
+        case -1: {
             if (DYFRespondsToMethod(self.delegate, back)) {
                 [self.delegate back];
             }
@@ -172,9 +266,12 @@
         }
             
         case 1: {
-            sender.selected = !sender.selected;
-            if (DYFRespondsToMethod(self.delegate, openTorch)) {
-                [self.delegate openTorch];
+            DYFLog(@"hasTorch: %d", self.hasTorch);
+            if (self.hasTorch) {
+                sender.selected = !sender.selected;
+                if (DYFRespondsToMethod(self.delegate, openTorch)) {
+                    [self.delegate openTorch];
+                }
             }
             break;
         }
@@ -203,55 +300,37 @@
     return sizeToFit.height;
 }
 
-- (void)layoutLine {
-    CGFloat delta = self.transparentArea.height/2 - 10;
-    
-    CGFloat dw = 260.f;
-    CGFloat dh = 2.f;
-    CGFloat dx = (self.bounds.size.width - dw)/2;
-    CGFloat dy = (self.bounds.size.height - dh)/2 - delta;
-    
-    self.lineImgView.frame = CGRectMake(dx, dy, dw, dh);
-}
-
-- (void)layoutTipLabel {
-    CGFloat delta = self.transparentArea.height/2 + 5;
-    
-    CGFloat dw = self.transparentArea.width;
-    CGFloat dh = [self heightForString:self.tipLabel andWidth:dw];
-    CGFloat dx = (self.bounds.size.width - dw)/2;
-    CGFloat dy = self.bounds.size.height/2 + delta;
-    
-    self.tipLabel.frame = CGRectMake(dx, dy, dw, dh);
-}
-
 - (void)startAnimation {
     if (!_lineImgView || !_isReading) {
         return;
     }
     
-    [UIView animateWithDuration:2.3 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+    CGFloat vH = self.bounds.size.height;
+    CGFloat tH = self.transparentArea.height;
+    
+    [UIView animateWithDuration:2.f delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         
-        self.lineImgView.transform = CGAffineTransformMakeTranslation(0, self.transparentArea.height - 20);
-
+        //self.lineImgView.transform = CGAffineTransformMakeTranslation(0, tH - 20);
+        CGRect r = self.lineImgView.frame;
+        r.origin.y = vH/2 + tH/2 - 40.f;
+        self.lineImgView.frame = r;
+        
     } completion:^(BOOL finished) {
         
-        self.lineImgView.transform = CGAffineTransformIdentity;
+        //self.lineImgView.transform = CGAffineTransformIdentity;
+        CGRect r = self.lineImgView.frame;
+        r.origin.y = vH/2 - tH/2 - 20.f;
+        self.lineImgView.frame = r;
+        
         [self startAnimation];
+        
     }];
-}
-
-- (void)showTorchButton {
-    UIButton *torchButton = [self viewWithTag:11];
-    torchButton.hidden = NO;
 }
 
 - (void)startScan {
     if (_lineImgView) {
         _isReading = YES;
-        
-        [self layoutLine];
-        [self layoutTipLabel];
+        [self   updateLayout];
         [self startAnimation];
     }
 }
@@ -261,11 +340,11 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGSize viewSize = self.bounds.size;
-    CGRect screenDrawRect = CGRectMake(0, 0, viewSize.width, viewSize.height);
+    CGSize vSize          = self.bounds.size;
+    CGRect screenDrawRect = CGRectMake(0, 0, vSize.width, vSize.height);
     
-    CGFloat rX = (screenDrawRect.size.width - self.transparentArea.width)/2;
-    CGFloat rY = (screenDrawRect.size.height - self.transparentArea.height)/2 - 10;
+    CGFloat rX = (screenDrawRect.size.width  - self.transparentArea.width )/2;
+    CGFloat rY = (screenDrawRect.size.height - self.transparentArea.height)/2 - 30;
     CGFloat rW = self.transparentArea.width;
     CGFloat rH = self.transparentArea.height;
     CGRect clearDrawRect = CGRectMake(rX, rY, rW, rH);
@@ -279,7 +358,7 @@
 }
 
 - (void)addScreenFillRect:(CGContextRef)ctx rect:(CGRect)rect {
-    CGContextSetRGBFillColor(ctx, 10/255.0, 10/255.0, 10/255.0, 0.7);
+    CGContextSetRGBFillColor(ctx, 10/255.0, 10/255.0, 10/255.0, 0.4);
     CGContextFillRect(ctx, rect); //draw the transparent layer
 }
 
@@ -340,7 +419,7 @@
     };
     CGPoint poinsBottomRightB[] = {
         CGPointMake(rect.origin.x+rect.size.width-15, rect.origin.y+rect.size.height-0.7),
-        CGPointMake(rect.origin.x+rect.size.width, rect.origin.y+rect.size.height- 0.7)
+        CGPointMake(rect.origin.x+rect.size.width, rect.origin.y+rect.size.height-0.7)
     };
     [self addLine:poinsBottomRightA pointB:poinsBottomRightB ctx:ctx];
     

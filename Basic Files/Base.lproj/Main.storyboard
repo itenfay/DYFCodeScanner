@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tfD-nd-rT7">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c6S-aF-uj5"/>
+                        <viewControllerLayoutGuide type="bottom" id="68r-T3-102"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFV-fD-ct9" userLabel="bgView">
+                                <rect key="frame" x="27" y="268" width="360" height="360"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCu-VJ-Izw">
+                                        <rect key="frame" x="10" y="10" width="80" height="60"/>
+                                        <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="BPJ-uB-wNK"/>
+                                            <constraint firstAttribute="height" constant="60" id="kdU-TT-pxd"/>
+                                        </constraints>
+                                        <state key="normal" title="扫一扫">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vAN-7f-C7t"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dj9-3V-6nA">
+                                        <rect key="frame" x="100" y="10" width="90" height="60"/>
+                                        <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="LkL-MV-WdR"/>
+                                            <constraint firstAttribute="width" constant="90" id="Rjl-S1-T3P"/>
+                                        </constraints>
+                                        <state key="normal" title="生成二维码">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="generateQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FXE-rs-upg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QCA-kS-UND">
+                                        <rect key="frame" x="200" y="10" width="150" height="60"/>
+                                        <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="cSg-AK-7ZU"/>
+                                            <constraint firstAttribute="width" constant="150" id="uxt-bG-2Dv"/>
+                                        </constraints>
+                                        <state key="normal" title="生成带颜色的二维码">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="generateColorQRCode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hSf-mg-SRK"/>
+                                        </connections>
+                                    </button>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XnH-zc-QPa" customClass="DYFQRCodeImageView">
+                                        <rect key="frame" x="190" y="200" width="150" height="150"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="150" id="UPI-E5-VXm"/>
+                                            <constraint firstAttribute="height" constant="150" id="mbn-4h-l97"/>
+                                        </constraints>
+                                    </imageView>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7Gs-3L-07V" customClass="DYFQRCodeImageView">
+                                        <rect key="frame" x="20" y="200" width="150" height="150"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="lIY-71-e2p"/>
+                                            <constraint firstAttribute="width" constant="150" id="q7H-Ta-oRC"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Jtg-De-iDs">
+                                        <rect key="frame" x="10" y="85" width="340" height="100"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="aUP-v4-XqO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="XnH-zc-QPa" firstAttribute="top" secondItem="Jtg-De-iDs" secondAttribute="bottom" constant="15" id="8tW-TG-Rhd"/>
+                                    <constraint firstItem="HCu-VJ-Izw" firstAttribute="leading" secondItem="cFV-fD-ct9" secondAttribute="leading" constant="10" id="JF7-6W-6Kq"/>
+                                    <constraint firstItem="Dj9-3V-6nA" firstAttribute="leading" secondItem="HCu-VJ-Izw" secondAttribute="trailing" constant="10" id="JPN-Tf-oBa"/>
+                                    <constraint firstItem="7Gs-3L-07V" firstAttribute="top" secondItem="Jtg-De-iDs" secondAttribute="bottom" constant="15" id="JuY-OP-hWa"/>
+                                    <constraint firstItem="XnH-zc-QPa" firstAttribute="leading" secondItem="7Gs-3L-07V" secondAttribute="trailing" constant="20" id="KJx-l3-ZWq"/>
+                                    <constraint firstAttribute="trailing" secondItem="QCA-kS-UND" secondAttribute="trailing" constant="10" id="QeM-FD-PdA"/>
+                                    <constraint firstItem="Jtg-De-iDs" firstAttribute="top" secondItem="HCu-VJ-Izw" secondAttribute="bottom" constant="15" id="T0h-T5-fGA"/>
+                                    <constraint firstItem="Jtg-De-iDs" firstAttribute="leading" secondItem="cFV-fD-ct9" secondAttribute="leading" constant="10" id="Woi-oG-Xef"/>
+                                    <constraint firstItem="HCu-VJ-Izw" firstAttribute="top" secondItem="cFV-fD-ct9" secondAttribute="top" constant="10" id="kiI-fu-jSf"/>
+                                    <constraint firstItem="Dj9-3V-6nA" firstAttribute="top" secondItem="cFV-fD-ct9" secondAttribute="top" constant="10" id="mmQ-h6-sGf"/>
+                                    <constraint firstAttribute="height" constant="360" id="pS2-q0-mjE"/>
+                                    <constraint firstAttribute="width" constant="360" id="q7r-dm-O2y"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jtg-De-iDs" secondAttribute="trailing" constant="10" id="rVo-yu-PmG"/>
+                                    <constraint firstItem="7Gs-3L-07V" firstAttribute="leading" secondItem="cFV-fD-ct9" secondAttribute="leading" constant="20" id="tGx-bi-OT3"/>
+                                    <constraint firstItem="QCA-kS-UND" firstAttribute="top" secondItem="cFV-fD-ct9" secondAttribute="top" constant="10" id="uph-kK-Tmw"/>
+                                    <constraint firstItem="QCA-kS-UND" firstAttribute="leading" secondItem="Dj9-3V-6nA" secondAttribute="trailing" constant="10" id="wwL-4A-VRS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cFV-fD-ct9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6p3-nD-8Sp"/>
+                            <constraint firstItem="cFV-fD-ct9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="DTu-om-YHD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IAI-6Z-XCE"/>
+                    <connections>
+                        <outlet property="cqrc_imageView" destination="XnH-zc-QPa" id="yf3-4c-5dZ"/>
+                        <outlet property="m_textView" destination="Jtg-De-iDs" id="P7o-qU-4rU"/>
+                        <outlet property="qrc_imageView" destination="7Gs-3L-07V" id="Oxy-HZ-Cje"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="89.732142857142847"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="GT3-hW-6zU">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tfD-nd-rT7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xDH-Xb-0Ep">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="4XS-gY-dn0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ig4-9T-M8J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="89.732142857142847"/>
+        </scene>
+    </scenes>
+</document>

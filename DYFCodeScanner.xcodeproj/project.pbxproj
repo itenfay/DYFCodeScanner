@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		145BCE1422DC496500E94B99 /* cat49334.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 145BCE1322DC496500E94B99 /* cat49334.jpg */; };
 		1490EFCA227F8C0D001698ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFC9227F8C0D001698ED /* AppDelegate.m */; };
 		1490EFCD227F8C0D001698ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFCC227F8C0D001698ED /* ViewController.m */; };
 		1490EFD0227F8C0D001698ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1490EFCE227F8C0D001698ED /* Main.storyboard */; };
@@ -16,11 +17,13 @@
 		1490EFEA227F8C9B001698ED /* DYFCodeScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */; };
 		1490EFEB227F8C9B001698ED /* DYFCodeScannerPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */; };
 		1490EFEC227F8C9B001698ED /* DYFCodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */; };
-		1490EFED227F8C9B001698ED /* DYFCreateQRCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE7227F8C9B001698ED /* DYFCreateQRCodeView.m */; };
-		1490EFEE227F8C9B001698ED /* UIImage+DYFQRExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE9227F8C9B001698ED /* UIImage+DYFQRExtension.m */; };
+		1490EFED227F8C9B001698ED /* DYFQRCodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */; };
+		1490EFEE227F8C9B001698ED /* UIImage+QRCodeExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE9227F8C9B001698ED /* UIImage+QRCodeExtension.m */; };
+		1497281022DD6BD30073E374 /* UIButton+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1497280E22DD6BD30073E374 /* UIButton+Additional.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		145BCE1322DC496500E94B99 /* cat49334.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat49334.jpg; sourceTree = "<group>"; };
 		1490EFC5227F8C0D001698ED /* DYFCodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DYFCodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1490EFC8227F8C0D001698ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1490EFC9227F8C0D001698ED /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -31,16 +34,18 @@
 		1490EFD4227F8C23001698ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1490EFD6227F8C23001698ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1490EFD7227F8C23001698ED /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1490EFDF227F8C9B001698ED /* DYFCreateQRCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCreateQRCodeView.h; sourceTree = "<group>"; };
+		1490EFDF227F8C9B001698ED /* DYFQRCodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFQRCodeImageView.h; sourceTree = "<group>"; };
 		1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFCodeScannerViewController.m; sourceTree = "<group>"; };
 		1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFCodeScannerPreView.m; sourceTree = "<group>"; };
 		1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DYFCodeScanner.bundle; sourceTree = "<group>"; };
-		1490EFE4227F8C9B001698ED /* UIImage+DYFQRExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DYFQRExtension.h"; sourceTree = "<group>"; };
+		1490EFE4227F8C9B001698ED /* UIImage+QRCodeExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCodeExtension.h"; sourceTree = "<group>"; };
 		1490EFE5227F8C9B001698ED /* DYFCodeScannerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerMacros.h; sourceTree = "<group>"; };
 		1490EFE6227F8C9B001698ED /* DYFCodeScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerViewController.h; sourceTree = "<group>"; };
-		1490EFE7227F8C9B001698ED /* DYFCreateQRCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFCreateQRCodeView.m; sourceTree = "<group>"; };
+		1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFQRCodeImageView.m; sourceTree = "<group>"; };
 		1490EFE8227F8C9B001698ED /* DYFCodeScannerPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerPreView.h; sourceTree = "<group>"; };
-		1490EFE9227F8C9B001698ED /* UIImage+DYFQRExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DYFQRExtension.m"; sourceTree = "<group>"; };
+		1490EFE9227F8C9B001698ED /* UIImage+QRCodeExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCodeExtension.m"; sourceTree = "<group>"; };
+		1497280E22DD6BD30073E374 /* UIButton+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Additional.m"; sourceTree = "<group>"; };
+		1497280F22DD6BD30073E374 /* UIButton+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Additional.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				1490EFDE227F8C9B001698ED /* Classes */,
-				1490EFC7227F8C0D001698ED /* DYFCodeScanner */,
+				1490EFC7227F8C0D001698ED /* Basic Files */,
 				1490EFC6227F8C0D001698ED /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,7 +76,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1490EFC7227F8C0D001698ED /* DYFCodeScanner */ = {
+		1490EFC7227F8C0D001698ED /* Basic Files */ = {
 			isa = PBXGroup;
 			children = (
 				1490EFC8227F8C0D001698ED /* AppDelegate.h */,
@@ -83,8 +88,9 @@
 				1490EFD3227F8C23001698ED /* LaunchScreen.storyboard */,
 				1490EFD6227F8C23001698ED /* Info.plist */,
 				1490EFD7227F8C23001698ED /* main.m */,
+				145BCE1322DC496500E94B99 /* cat49334.jpg */,
 			);
-			path = DYFCodeScanner;
+			path = "Basic Files";
 			sourceTree = "<group>";
 		};
 		1490EFDE227F8C9B001698ED /* Classes */ = {
@@ -92,24 +98,26 @@
 			children = (
 				1490EFE6227F8C9B001698ED /* DYFCodeScannerViewController.h */,
 				1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */,
-				1490EFDF227F8C9B001698ED /* DYFCreateQRCodeView.h */,
-				1490EFE7227F8C9B001698ED /* DYFCreateQRCodeView.m */,
+				1490EFDF227F8C9B001698ED /* DYFQRCodeImageView.h */,
+				1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */,
 				1490EFE8227F8C9B001698ED /* DYFCodeScannerPreView.h */,
 				1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */,
-				1490EFE2227F8C9B001698ED /* Resources */,
+				1490EFE2227F8C9B001698ED /* Resource */,
 				1490EFE5227F8C9B001698ED /* DYFCodeScannerMacros.h */,
-				1490EFE4227F8C9B001698ED /* UIImage+DYFQRExtension.h */,
-				1490EFE9227F8C9B001698ED /* UIImage+DYFQRExtension.m */,
+				1490EFE4227F8C9B001698ED /* UIImage+QRCodeExtension.h */,
+				1490EFE9227F8C9B001698ED /* UIImage+QRCodeExtension.m */,
+				1497280F22DD6BD30073E374 /* UIButton+Additional.h */,
+				1497280E22DD6BD30073E374 /* UIButton+Additional.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		1490EFE2227F8C9B001698ED /* Resources */ = {
+		1490EFE2227F8C9B001698ED /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */,
 			);
-			path = Resources;
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +146,7 @@
 		1490EFBD227F8C0D001698ED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = DYF;
 				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = dyf;
 				TargetAttributes = {
@@ -169,6 +178,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				145BCE1422DC496500E94B99 /* cat49334.jpg in Resources */,
 				1490EFD5227F8C23001698ED /* LaunchScreen.storyboard in Resources */,
 				1490EFD2227F8C23001698ED /* Assets.xcassets in Resources */,
 				1490EFD0227F8C0D001698ED /* Main.storyboard in Resources */,
@@ -185,11 +195,12 @@
 			files = (
 				1490EFCD227F8C0D001698ED /* ViewController.m in Sources */,
 				1490EFD8227F8C23001698ED /* main.m in Sources */,
-				1490EFED227F8C9B001698ED /* DYFCreateQRCodeView.m in Sources */,
+				1490EFED227F8C9B001698ED /* DYFQRCodeImageView.m in Sources */,
+				1497281022DD6BD30073E374 /* UIButton+Additional.m in Sources */,
 				1490EFEA227F8C9B001698ED /* DYFCodeScannerViewController.m in Sources */,
 				1490EFEB227F8C9B001698ED /* DYFCodeScannerPreView.m in Sources */,
 				1490EFCA227F8C0D001698ED /* AppDelegate.m in Sources */,
-				1490EFEE227F8C9B001698ED /* UIImage+DYFQRExtension.m in Sources */,
+				1490EFEE227F8C9B001698ED /* UIImage+QRCodeExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,10 +342,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = DYFCodeScanner/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KCBQ48PTUV;
+				INFOPLIST_FILE = "$(SRCROOT)/Basic Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,10 +362,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = DYFCodeScanner/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KCBQ48PTUV;
+				INFOPLIST_FILE = "$(SRCROOT)/Basic Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

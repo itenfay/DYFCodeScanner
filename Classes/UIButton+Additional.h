@@ -1,5 +1,5 @@
 //
-//  UIImage+DYFQRExtension.h
+//  UIButton+Additional.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -24,10 +24,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreImage/CoreImage.h>
+#import <CoreGraphics/CoreGraphics.h>
 
-@interface UIImage (DYFQRExtension)
+struct VVBorder {
+    CGFloat width;
+    UIColor *color;
+};
+typedef struct VVBorder VVBorder;
 
-- (NSString *)QRCodeString;
+CG_EXTERN const VVBorder VVBorderNull;
+
+typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *fillColor, CGFloat cornerRadius, VVBorder border);
+
+@interface UIButton (Additional)
+
+// 
+- (ClipCornerBlock)addCorner;
 
 @end

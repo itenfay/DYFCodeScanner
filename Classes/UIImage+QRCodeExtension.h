@@ -1,5 +1,5 @@
 //
-//  DYFCodeScannerViewController.h
+//  UIImage+QRCodeExtension.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -24,21 +24,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
+#import <CoreImage/CoreImage.h>
 
-typedef void (^DYFCaptureOutputResultHandler)(BOOL result, NSString *stringValue);
+@interface UIImage (QRCodeExtension)
 
-typedef NS_ENUM(NSInteger, DYFCodeScannerType) {
-    DYFCodeScannerTypeAll = 0, // default, scan QRCode and barcode.
-    DYFCodeScannerTypeQRCode,  // scan QRCode only.
-    DYFCodeScannerTypeBarcode, // scan barcode only.
-};
-
-@interface DYFCodeScannerViewController : UIViewController
-@property (nonatomic, assign) DYFCodeScannerType scanType;
-@property (nonatomic,   copy) NSString *tipString;
-@property (nonatomic,   copy) NSString *navigationTitle;
-
-@property (nonatomic,   copy) DYFCaptureOutputResultHandler resultHandler;
+- (NSString *)yf_stringValue;
 
 @end

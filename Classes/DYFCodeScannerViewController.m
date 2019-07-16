@@ -26,35 +26,30 @@
 #import "DYFCodeScannerViewController.h"
 #import "DYFCodeScannerPreView.h"
 #import "DYFCodeScannerMacros.h"
-#import "UIImage+DYFQRExtension.h"
+#import "UIImage+QRCodeExtension.h"
 
-@interface DYFCodeScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, DYFCodeScannerPreViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-@property (nonatomic, strong) AVCaptureSession     *session;  // 会话
-@property (nonatomic, strong) AVCaptureDeviceInput *input;    // 输入流
-@property (nonatomic, strong) DYFCodeScannerPreView *preView; // 预览视图
-@property (nonatomic, assign) UIStatusBarStyle     originStatusBarStyle;
+@interface DYFCodeScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, DYFCodeScannerPreViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
+@property (nonatomic, strong) AVCaptureSession      *session;  // 会话
+@property (nonatomic, strong) AVCaptureDeviceInput  *input;    // 输入流
+@property (nonatomic, strong) DYFCodeScannerPreView *preView;  // 预览视图
 @end
 
 @implementation DYFCodeScannerViewController
 
 - (instancetype)init {
     self = [super init];
-    
     if (self) {
-        [self initConfig];
+        [self configure];
     }
-    
     return self;
 }
 
-- (void)initConfig {
+- (void)configure {
     self.scanType = DYFCodeScannerTypeAll;
 }
 
-- (void)setNavigationBarHidden:(BOOL)hidden {
-    if (self.navigationController) {
-        self.navigationController.navigationBarHidden = hidden;
-    }
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (BOOL)shouldAutorotate {
@@ -67,53 +62,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self addCustomView];
-    [self setTips];
+    [self configureNavigationBar];
+    [self addPreView];
     [self requestAccess];
-}
-
-- (void)setTips {
-    if (self.tips && self.tips.length > 0) {
-        self.preView.tipLabel.text = self.tips;
-    }
-}
-
-- (void)requestAccess {
-    @DYFWeakObject(self)
-    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (granted) {
-                [weak_self addScanView];
-            } else {
-                NSString *msg = @"请在“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
-                if (weak_self.resultHandler) {
-                    weak_self.resultHandler(NO, msg);
-                }
-                DYFLog(@"[W]: %@", msg);
-            }
-        });
-    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.originStatusBarStyle = DYFSharedApp.statusBarStyle;
-    [DYFSharedApp setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     
     if (self.session) {
         [self.session startRunning];
     }
     
     [self.preView startScan];
-    [self setNavigationBarHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.navigationController) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [DYFSharedApp setStatusBarStyle:self.originStatusBarStyle animated:YES];
     
     if (self.session) {
         [self.session stopRunning];
@@ -122,24 +94,69 @@
     [self.preView stopScan];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self setNavigationBarHidden:NO];
+- (void)hideNavigationBar:(BOOL)hidden {
+    if (self.navigationController) {
+        self.navigationController.navigationBarHidden = hidden;
+    }
+}
+
+- (void)configureNavigationBar {
+    if (self.navigationController) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+        self.navigationItem.title = self.navigationTitle;
+        
+        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        backButton.frame = CGRectMake(0, 0, 40, 40);
+        [backButton setImage:DYFBundleImageNamed(@"code_scanner_blueBack") forState:UIControlStateNormal];
+        [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(3, -10, 3, 30);
+        
+        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        spaceItem.width = -20;
+        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
+        
+        self.preView.hasNavigationBar = YES;
+    } else {
+        self.preView.hasNavigationBar = NO;
+    }
+}
+
+- (void)backButtonClicked:(UIButton *)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)requestAccess {
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (granted) {
+                [self configureScanner];
+            } else {
+                NSString *msg = @"请在“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
+                if (self.resultHandler) {
+                    self.resultHandler(NO, msg);
+                }
+                DYFLog(@"[W]: %@", msg);
+            }
+        });
+    }];
 }
 
 - (DYFCodeScannerPreView *)preView {
     if (!_preView) {
         _preView = [[DYFCodeScannerPreView alloc] initWithFrame:self.view.bounds];
         _preView.delegate = self;
+        _preView.title = self.navigationTitle;
+        _preView.tipLabel.text = self.tipString;
     }
     return _preView;
 }
 
-- (void)addCustomView {
+- (void)addPreView {
     [self.view addSubview:self.preView];
 }
 
-- (void)addScanView {
+- (void)configureScanner {
     // 获取摄像设备
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // 创建输入流
@@ -215,7 +232,6 @@
     }
     
     if (metadataObjects.count > 0) {
-        
         [self.session stopRunning];
         [self.preView stopScan];
         
@@ -223,9 +239,7 @@
         NSString *result = metadataObject.stringValue;
         
         [self captureOutputWithCompletion:^{
-            if (self.resultHandler) {
-                self.resultHandler(result ? YES : NO, result);
-            }
+            !self.resultHandler ?: self.resultHandler(result ? YES : NO, result);
         }];
     }
 }
@@ -249,9 +263,7 @@
 - (void)checkTorch {
     AVCaptureDevice *device = self.input.device;
     [device lockForConfiguration:nil];
-    if ([device hasTorch]) {
-        [self.preView showTorchButton];
-    }
+    self.preView.hasTorch = device.hasTorch;
     [device unlockForConfiguration];
 }
 
@@ -265,8 +277,10 @@
 - (void)openTorch {
     DYFLog();
     AVCaptureDevice *device = self.input.device;
+    
     // 锁定
     [device lockForConfiguration:nil];
+    
     // 判定是否有闪光灯
     if ([device hasTorch]) {
         if (device.torchMode == AVCaptureTorchModeOff) {
@@ -275,6 +289,7 @@
             device.torchMode = AVCaptureTorchModeOff;
         }
     }
+    
     // 解锁
     [device unlockForConfiguration];
 }
@@ -290,32 +305,28 @@
 
 - (void)showImagePicker {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         ipc.delegate = self;
         [self presentViewController:ipc animated:YES completion:NULL];
-        
     } else {
-        
         DYFLog(@"[W] | ImagePicker: SourceType is not available.");
     }
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker diDYFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-        NSString *qrCodeMsg = image.QRCodeString;
-        DYFLog(@"OriginalImage: %@, QRCode message: %@", image, qrCodeMsg);
+        NSString *codeMsg = image.yf_stringValue;
+        DYFLog(@"OriginalImage: %@, QRCode message: %@", image, codeMsg);
         
         [self captureOutputWithCompletion:^{
-            if (self.resultHandler) {
-                self.resultHandler(qrCodeMsg ? YES : NO, qrCodeMsg);
-            }
+            !self.resultHandler ?: self.resultHandler(codeMsg ? YES : NO, codeMsg);
         }];
+        
     });
 }
 
@@ -325,9 +336,14 @@
 
 - (void)zoom:(CGFloat)scale {
     AVCaptureDevice *device = self.input.device;
+   
     // 锁定
     [device lockForConfiguration:nil];
-    device.videoZoomFactor = scale;
+    
+    [UIView animateWithDuration:0.5f animations:^{
+        device.videoZoomFactor = scale;
+    }];
+    
     // 解锁
     [device unlockForConfiguration];
 }

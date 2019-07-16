@@ -1,6 +1,5 @@
 //
 //  AppDelegate.m
-//  DYFCodeScanner
 //
 //  Created by dyf on 2019/5/6.
 //  Copyright © 2019 dyf. All rights reserved.
@@ -17,6 +16,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    sleep(2);
     return YES;
 }
 

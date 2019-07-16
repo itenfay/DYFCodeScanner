@@ -1,5 +1,5 @@
 //
-//  UIImage+DYFQRExtension.m
+//  UIImage+QRCodeExtension.m
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,12 +23,11 @@
 // THE SOFTWARE.
 //
 
-#import "UIImage+DYFQRExtension.h"
-#import "DYFCodeScannerMacros.h"
+#import "UIImage+QRCodeExtension.h"
 
-@implementation UIImage (DYFQRExtension)
+@implementation UIImage (QRCodeExtension)
 
-- (NSString *)QRCodeString {
+- (NSString *)yf_stringValue {
     // 创建一个CIImage对象, 开始识别图片, 获取图片特征
     CIImage *ciImage = [[CIImage alloc] initWithCGImage:self.CGImage options:nil];
     
@@ -40,8 +39,10 @@
     
     NSArray<CIFeature *> *features = [detector featuresInImage:ciImage];
     for (CIQRCodeFeature *codef in features) {
+#if DEBUG
         // 打印二维码中的信息
-        DYFLog(@"QRCode message: %@", codef.messageString);
+        NSLog(@"QRCode Feature Message: %@", codef.messageString);
+#endif
     }
     CIQRCodeFeature *codef = (CIQRCodeFeature *)features.firstObject;
     

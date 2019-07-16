@@ -41,15 +41,16 @@
 
 @interface DYFCodeScannerPreView : UIView
 
-@property (nonatomic, weak  ) id<DYFCodeScannerPreViewDelegate> delegate;
+@property (nonatomic,   weak) id<DYFCodeScannerPreViewDelegate> delegate;
+@property (nonatomic,   copy) NSString *title;
 
 @property (nonatomic, assign) CGSize transparentArea;
 @property (nonatomic, assign) BOOL isReading;
 @property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, assign) BOOL hasTorch;
+@property (nonatomic, assign) BOOL hasNavigationBar;
 
 - (void)startScan;
 - (void)stopScan;
-
-- (void)showTorchButton;
 
 @end
