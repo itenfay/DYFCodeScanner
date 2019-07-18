@@ -29,7 +29,7 @@
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-&nbsp;&nbsp;支持push和模态两种场景过渡 (Supporting push or modal transition)。
+&nbsp;&nbsp;支持push和模态两种场景过渡 (Supporting push or modal transition)
 
 ```
 // 根据项目的需求，自由选择之一，即可。
@@ -70,6 +70,8 @@
 
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
+![](https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg)
+
 ```
 - (IBAction)generateQRCode:(id)sender {
     CGRect rect = self.qrc_imageView.frame;
@@ -78,7 +80,9 @@
 }
 ```
 
-2. 生成带中心图像的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
+2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
+
+![](https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg)
 
 ```
 - (IBAction)generateColorQRCode:(id)sender {
@@ -86,6 +90,13 @@
     DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:rect stringValue:@"http://img.shields.io/cocoapods/p/DYFAssistiveTouchView.svg?style=flat" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor]];
     self.cqrc_imageView.image = imageView.image;
 }
+```
+
+3.  生成带中心图像颜色的二维码 (Generating QR code that contains center image, backgroudColor and foregroudColor)
+
+```
+DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(100, 100, 240, 240) stringValue:@"https://github.com/dgynfi/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
+[self.view addSubview:imageView];
 ```
 
 - 识别二维码 (Recognizing QR code)
