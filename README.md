@@ -70,7 +70,9 @@
 
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
-![](https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg)
+<div align=left>
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="50%" />
+</div>
 
 ```
 - (IBAction)generateQRCode:(id)sender {
@@ -82,7 +84,9 @@
 
 2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
-![](https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg)
+<div align=left>
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="50%" />
+</div>
 
 ```
 - (IBAction)generateColorQRCode:(id)sender {
