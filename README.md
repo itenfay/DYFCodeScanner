@@ -71,7 +71,7 @@
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="50%" />
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
 </div>
 
 ```
@@ -85,7 +85,7 @@
 2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="50%" />
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
 </div>
 
 ```
