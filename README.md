@@ -3,7 +3,8 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
 
 ## DYFCodeScanner
- 手势密码解锁 和 TouchID（指纹）/ FaceID（面容）解锁，代码简洁，高效。(Gesture passcode unlocking and TouchID (fingerprint) / FaceID (facial features) unlocking, concise code and efficient.) iOS Barcode and QRCode scanner.
+
+ 一个二维码/条形码的扫码器，代码简洁，高效。(A QR code and Barcode scanner for iOS. concise code and efficient.)
 
 ## 技术交流群(群号:155353383) 
 
@@ -13,7 +14,7 @@
 ## 效果图
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif.gif" width="40%" />
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="40%" />
 </div>
 
 ## 使用说明
@@ -28,7 +29,7 @@
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-支持push和模态两种场景过渡 (Supporting push or modal transition)。
+&nbsp;&nbsp;支持push和模态两种场景过渡 (Supporting push or modal transition)。
 
 ```
 // 根据项目的需求，自由选择之一，即可。
@@ -77,7 +78,7 @@
 }
 ```
 
-- 生成带中心图像的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
+2. 生成带中心图像的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
 ```
 - (IBAction)generateColorQRCode:(id)sender {
