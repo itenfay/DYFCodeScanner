@@ -8,11 +8,11 @@
 #import "ViewController.h"
 #import "DYFCodeScannerViewController.h"
 #import "DYFQRCodeImageView.h"
-#import "UIImage+QRCodeExtension.h"
+#import "UIImage+QRCode.h"
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextView *m_textView;
+@property (weak, nonatomic) IBOutlet UITextView         *m_textView;
 @property (weak, nonatomic) IBOutlet DYFQRCodeImageView *qrc_imageView;
 @property (weak, nonatomic) IBOutlet DYFQRCodeImageView *cqrc_imageView;
 

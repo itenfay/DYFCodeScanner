@@ -29,37 +29,42 @@ const VVBorder VVBorderNull = {0, nil};
 
 @implementation UIButton (Additional)
 
-- (ClipCornerBlock)addCorner {
-    ClipCornerBlock block = ^(UIRectCorner rc, UIColor *fillColor, CGFloat cornerRadius, VVBorder border) {
-        CGSize radii = CGSizeMake(cornerRadius, cornerRadius);
+- (ClipCornerBlock)clipCorner {
+    ClipCornerBlock block = ^(UIRectCorner rc, UIColor *color, CGFloat cornerRadius, VVBorder border) {
+        CGRect mRect       = self.bounds;
+        CGSize mSize       = mRect.size;
+        CGSize radii       = CGSizeMake(cornerRadius, cornerRadius);
         
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:rc cornerRadii:radii];
-        
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:mRect byRoundingCorners:rc cornerRadii:radii];
         UIImage *image = nil;
         
         if (@available(iOS 10.0, *)) {
-            
-            UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:self.bounds.size];
+            UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:mSize];
             
             image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
-                CGContextSetFillColorWithColor(rendererContext.CGContext, fillColor.CGColor);
-                CGContextSetStrokeColorWithColor(rendererContext.CGContext, border.color.CGColor);
-                CGContextSetLineWidth(rendererContext.CGContext, border.width);
+                UIGraphicsImageRendererContext  *ctx = rendererContext;
+                
+                CGContextSetFillColorWithColor  (ctx.CGContext, color.CGColor);
+                CGContextSetStrokeColorWithColor(ctx.CGContext, border.color.CGColor);
+                CGContextSetLineWidth           (ctx.CGContext, border.width);
+                
                 [path addClip];
-                CGContextAddPath(rendererContext.CGContext, path.CGPath);
-                CGContextDrawPath(rendererContext.CGContext, kCGPathFillStroke);
+                
+                CGContextAddPath (ctx.CGContext, path.CGPath);
+                CGContextDrawPath(ctx.CGContext, kCGPathFillStroke);
             }];
-            
         } else {
-            
-            UIGraphicsBeginImageContext(self.bounds.size);
+            UIGraphicsBeginImageContext(mSize);
             
             CGContextRef context = UIGraphicsGetCurrentContext();
-            CGContextSetFillColorWithColor(context, fillColor.CGColor);
+            
+            CGContextSetFillColorWithColor  (context, color.CGColor);
             CGContextSetStrokeColorWithColor(context, border.color.CGColor);
-            CGContextSetLineWidth(context, border.width);
+            CGContextSetLineWidth           (context, border.width);
+            
             [path addClip];
-            CGContextAddPath(context, path.CGPath);
+            
+            CGContextAddPath (context, path.CGPath);
             CGContextDrawPath(context, kCGPathFillStroke);
             
             image = UIGraphicsGetImageFromCurrentImageContext();
@@ -67,7 +72,6 @@ const VVBorder VVBorderNull = {0, nil};
             UIGraphicsEndImageContext();
         }
         
-        [self setBackgroundColor:[UIColor clearColor]];
         [self setBackgroundImage:image forState:UIControlStateNormal];
     };
     

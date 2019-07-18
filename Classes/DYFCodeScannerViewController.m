@@ -26,7 +26,7 @@
 #import "DYFCodeScannerViewController.h"
 #import "DYFCodeScannerPreView.h"
 #import "DYFCodeScannerMacros.h"
-#import "UIImage+QRCodeExtension.h"
+#import "UIImage+QRCode.h"
 
 @interface DYFCodeScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, DYFCodeScannerPreViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) AVCaptureSession      *session;  // 会话
@@ -274,43 +274,49 @@
     [self captureOutputWithCompletion:NULL];
 }
 
-- (void)openTorch {
+- (void)turnOnTorch {
     DYFLog();
     AVCaptureDevice *device = self.input.device;
-    
     // 锁定
     [device lockForConfiguration:nil];
-    
     // 判定是否有闪光灯
     if ([device hasTorch]) {
-        if (device.torchMode == AVCaptureTorchModeOff) {
-            device.torchMode = AVCaptureTorchModeOn;
-        } else if (device.torchMode == AVCaptureTorchModeOn) {
-            device.torchMode = AVCaptureTorchModeOff;
-        }
+        device.torchMode = AVCaptureTorchModeOn;
     }
-    
+    // 解锁
+    [device unlockForConfiguration];
+}
+
+- (void)turnOffTorch {
+    DYFLog();
+    AVCaptureDevice *device = self.input.device;
+    // 锁定
+    [device lockForConfiguration:nil];
+    // 判定是否有闪光灯
+    if ([device hasTorch]) {
+        device.torchMode = AVCaptureTorchModeOff;
+    }
     // 解锁
     [device unlockForConfiguration];
 }
 
 - (void)openPhotoLibrary {
     DYFLog();
-    [self showImagePicker];
+    [self presentImagePicker];
 }
 
 - (void)queryHistory {
     DYFLog();
 }
 
-- (void)showImagePicker {
+- (void)presentImagePicker {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         ipc.delegate = self;
         [self presentViewController:ipc animated:YES completion:NULL];
     } else {
-        DYFLog(@"[W] | ImagePicker: SourceType is not available.");
+        DYFLog(@"[W]: ImagePicker: SourceType is not available.");
     }
 }
 
@@ -320,6 +326,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
         NSString *codeMsg = image.yf_stringValue;
         DYFLog(@"OriginalImage: %@, QRCode message: %@", image, codeMsg);
         
@@ -336,14 +343,11 @@
 
 - (void)zoom:(CGFloat)scale {
     AVCaptureDevice *device = self.input.device;
-   
     // 锁定
     [device lockForConfiguration:nil];
-    
-    [UIView animateWithDuration:0.5f animations:^{
+    [UIView animateWithDuration:0.3f animations:^{
         device.videoZoomFactor = scale;
     }];
-    
     // 解锁
     [device unlockForConfiguration];
 }

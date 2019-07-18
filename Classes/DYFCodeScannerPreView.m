@@ -93,7 +93,7 @@
 - (void)addItems {
     UIButton *backButton = [[UIButton alloc] init];
     [backButton setImage:DYFBundleImageNamed(@"code_scanner_back") forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [backButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     backButton.tag = 9;
     [self addSubview:backButton];
     
@@ -108,21 +108,21 @@
     
     UIButton *torchButton = [[UIButton alloc] init];
     [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch") forState:UIControlStateNormal];
-    [torchButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [torchButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     torchButton.tag = 11;
     torchButton.showsTouchWhenHighlighted = YES;
     [self addSubview:torchButton];
     
     UIButton *photoButton = [[UIButton alloc] init];
     [photoButton setImage:DYFBundleImageNamed(@"code_scanner_photo") forState:UIControlStateNormal];
-    [photoButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [photoButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     photoButton.tag = 12;
     photoButton.showsTouchWhenHighlighted = YES;
     [self addSubview:photoButton];
     
     UIButton *historyButton = [[UIButton alloc] init];
     [historyButton setImage:DYFBundleImageNamed(@"code_scanner_history") forState:UIControlStateNormal];
-    [historyButton addTarget:self action:@selector(itemDidClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [historyButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     historyButton.tag = 13;
     historyButton.hidden = YES;
     historyButton.showsTouchWhenHighlighted = YES;
@@ -164,18 +164,18 @@
 
 - (void)setHasTorch:(BOOL)hasTorch {
     _hasTorch = hasTorch;
-    UIButton *torchButton = [self viewWithTag:11];
     if (hasTorch) {
+        UIButton *torchButton = [self viewWithTag:11];
         [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch_on") forState:UIControlStateSelected];
     }
 }
 
 - (void)updateLayout {
     DYFLog();
-    [self layoutLine];
+    [self     layoutLine];
     [self layoutTipLabel];
     
-    CGSize  vSize           = self.bounds.size;
+    CGSize    vSize         = self.bounds.size;
     
     UIButton *backButton    = [self viewWithTag: 9];
     UILabel  *titleLabel    = [self viewWithTag:10];
@@ -198,32 +198,32 @@
         CGFloat titleLabX = backBtnX + ItemW - dt + 10.f;
         CGFloat titleLabY = backButton.frame.origin.y;
         CGFloat titleLabW = vSize.width - 2*titleLabX;
-        titleLabel.frame = CGRectMake(titleLabX, titleLabY, titleLabW, ItemH - dt);
+        titleLabel.frame  = CGRectMake(titleLabX, titleLabY, titleLabW, ItemH - dt);
     }
     
-    UIColor *fillColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+    UIColor *bgColor  = [UIColor colorWithWhite:0.2 alpha:0.6];
     
-    CGFloat tipLabY = self.tipLabel.frame.origin.y;
-    CGFloat tipLabH = self.tipLabel.frame.size.height;
+    CGFloat tipLabY   = self.tipLabel.frame.origin.y;
+    CGFloat tipLabH   = self.tipLabel.frame.size.height;
     
     CGFloat torchBtnX = (vSize.width - self.transparentArea.width)/2.f;
     CGFloat torchBtnY = tipLabY + tipLabH + 30.f;
     torchButton.frame = CGRectMake(torchBtnX, torchBtnY, ItemW, ItemH);
-    torchButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+    torchButton.clipCorner(UIRectCornerAllCorners, bgColor, ItemH/2, VVBorderNull);
     
     CGFloat photoBtnX = (vSize.width - ItemW)/2.f;
     CGFloat photoBtnY = torchButton.frame.origin.y;
     if (historyButton.hidden) {
-        photoBtnX = (vSize.width + self.transparentArea.width)/2.f - ItemW;
+        photoBtnX     = (vSize.width + self.transparentArea.width)/2.f - ItemW;
     }
     photoButton.frame = CGRectMake(photoBtnX, photoBtnY, ItemW, ItemH);
-    photoButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+    photoButton.clipCorner(UIRectCornerAllCorners, bgColor, ItemH/2, VVBorderNull);
     
     if (!historyButton.hidden) {
         CGFloat historyBtnX = (vSize.width + self.transparentArea.width)/2.f - ItemW;
         CGFloat historyBtnY = torchButton.frame.origin.y;
         historyButton.frame = CGRectMake(historyBtnX, historyBtnY, ItemW, ItemH);
-        historyButton.addCorner(UIRectCornerAllCorners, fillColor, ItemH/2, VVBorderNull);
+        historyButton.clipCorner(UIRectCornerAllCorners, bgColor, ItemH/2, VVBorderNull);
     }
 }
 
@@ -254,14 +254,12 @@
     self.tipLabel.frame = CGRectMake(dx, dy, dw, dh);
 }
 
-- (void)itemDidClicked:(UIButton *)sender {
+- (void)itemClicked:(UIButton *)sender {
     NSInteger index = sender.tag - 10;
     
     switch (index) {
         case -1: {
-            if (DYFRespondsToMethod(self.delegate, back)) {
-                [self.delegate back];
-            }
+            !DYFRespondsToMethod(self.delegate, back) ?: [self.delegate back];
             break;
         }
             
@@ -269,29 +267,35 @@
             DYFLog(@"hasTorch: %d", self.hasTorch);
             if (self.hasTorch) {
                 sender.selected = !sender.selected;
-                if (DYFRespondsToMethod(self.delegate, openTorch)) {
-                    [self.delegate openTorch];
+                if (sender.selected) {
+                    !DYFRespondsToMethod(self.delegate, turnOnTorch)  ?: [self.delegate turnOnTorch];
+                } else {
+                    !DYFRespondsToMethod(self.delegate, turnOffTorch) ?: [self.delegate turnOffTorch];
                 }
             }
             break;
         }
             
         case 2: {
-            if (DYFRespondsToMethod(self.delegate, openPhotoLibrary)) {
-                [self.delegate openPhotoLibrary];
-            }
+            !DYFRespondsToMethod(self.delegate, openPhotoLibrary) ?: [self.delegate openPhotoLibrary];
             break;
         }
             
         case 3: {
-            if (DYFRespondsToMethod(self.delegate, queryHistory)) {
-                [self.delegate queryHistory];
-            }
+            !DYFRespondsToMethod(self.delegate, queryHistory) ?: [self.delegate queryHistory];
             break;
         }
             
         default:
             break;
+    }
+    
+    if (index != 1) {
+        UIButton *torchButton = [self viewWithTag:11];
+        torchButton.selected = NO;
+        if (DYFRespondsToMethod(self.delegate, turnOffTorch)) {
+            [self.delegate turnOffTorch];
+        }
     }
 }
 

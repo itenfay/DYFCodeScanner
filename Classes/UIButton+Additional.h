@@ -26,19 +26,31 @@
 #import <UIKit/UIKit.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+// Declare Border Struct.
 struct VVBorder {
     CGFloat width;
     UIColor *color;
 };
 typedef struct VVBorder VVBorder;
 
+// Declare Border Null.
 CG_EXTERN const VVBorder VVBorderNull;
 
-typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *fillColor, CGFloat cornerRadius, VVBorder border);
+CG_INLINE VVBorder
+VVBorderMake(CGFloat width, UIColor *color)
+{
+    VVBorder b;
+    b.width = width;
+    b.color = color;
+    return b;
+}
+
+// Block for clipping corner.
+typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *color, CGFloat cornerRadius, VVBorder border);
 
 @interface UIButton (Additional)
 
-// 
-- (ClipCornerBlock)addCorner;
+// Clips corner.
+- (ClipCornerBlock)clipCorner;
 
 @end

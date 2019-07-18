@@ -29,7 +29,8 @@
 @protocol DYFCodeScannerPreViewDelegate <NSObject>
 
 - (void)back;
-- (void)openTorch;
+- (void)turnOnTorch;
+- (void)turnOffTorch;
 - (void)openPhotoLibrary;
 
 @optional
