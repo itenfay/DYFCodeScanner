@@ -1,5 +1,5 @@
 <div align=center>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.jpg" width="90%">
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.jpg" width="80%">
 </div>
 
 [如果你觉得能帮助到你，请给一颗小星星。谢谢！(If you think it can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
@@ -35,7 +35,7 @@ pod 'DYFCodeScanner', '~> 1.0.0'
 - 添加隐私 (Add Privacy)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="90%" />
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
 </div>
 
 ```
