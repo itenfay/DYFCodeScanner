@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1426B4A422F01395008286CC /* DYFCodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1426B4A322F01394008286CC /* DYFCodeScanner.bundle */; };
 		145BCE1422DC496500E94B99 /* cat49334.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 145BCE1322DC496500E94B99 /* cat49334.jpg */; };
 		1490EFCA227F8C0D001698ED /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFC9227F8C0D001698ED /* AppDelegate.m */; };
 		1490EFCD227F8C0D001698ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFCC227F8C0D001698ED /* ViewController.m */; };
@@ -16,13 +17,14 @@
 		1490EFD8227F8C23001698ED /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFD7227F8C23001698ED /* main.m */; };
 		1490EFEA227F8C9B001698ED /* DYFCodeScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */; };
 		1490EFEB227F8C9B001698ED /* DYFCodeScannerPreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */; };
-		1490EFEC227F8C9B001698ED /* DYFCodeScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */; };
 		1490EFED227F8C9B001698ED /* DYFQRCodeImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */; };
 		1490EFEE227F8C9B001698ED /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1490EFE9227F8C9B001698ED /* UIImage+QRCode.m */; };
-		1497281022DD6BD30073E374 /* UIButton+Additional.m in Sources */ = {isa = PBXBuildFile; fileRef = 1497280E22DD6BD30073E374 /* UIButton+Additional.m */; };
+		1497281022DD6BD30073E374 /* UIButton+Corner.m in Sources */ = {isa = PBXBuildFile; fileRef = 1497280E22DD6BD30073E374 /* UIButton+Corner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1426B4A122F01325008286CC /* DYFCodeScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScanner.h; sourceTree = "<group>"; };
+		1426B4A322F01394008286CC /* DYFCodeScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DYFCodeScanner.bundle; sourceTree = "<group>"; };
 		145BCE1322DC496500E94B99 /* cat49334.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cat49334.jpg; sourceTree = "<group>"; };
 		1490EFC5227F8C0D001698ED /* DYFCodeScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DYFCodeScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1490EFC8227F8C0D001698ED /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -37,15 +39,14 @@
 		1490EFDF227F8C9B001698ED /* DYFQRCodeImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFQRCodeImageView.h; sourceTree = "<group>"; };
 		1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFCodeScannerViewController.m; sourceTree = "<group>"; };
 		1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFCodeScannerPreView.m; sourceTree = "<group>"; };
-		1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DYFCodeScanner.bundle; sourceTree = "<group>"; };
 		1490EFE4227F8C9B001698ED /* UIImage+QRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCode.h"; sourceTree = "<group>"; };
 		1490EFE5227F8C9B001698ED /* DYFCodeScannerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerMacros.h; sourceTree = "<group>"; };
 		1490EFE6227F8C9B001698ED /* DYFCodeScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerViewController.h; sourceTree = "<group>"; };
 		1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYFQRCodeImageView.m; sourceTree = "<group>"; };
 		1490EFE8227F8C9B001698ED /* DYFCodeScannerPreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYFCodeScannerPreView.h; sourceTree = "<group>"; };
 		1490EFE9227F8C9B001698ED /* UIImage+QRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
-		1497280E22DD6BD30073E374 /* UIButton+Additional.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Additional.m"; sourceTree = "<group>"; };
-		1497280F22DD6BD30073E374 /* UIButton+Additional.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Additional.h"; sourceTree = "<group>"; };
+		1497280E22DD6BD30073E374 /* UIButton+Corner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Corner.m"; sourceTree = "<group>"; };
+		1497280F22DD6BD30073E374 /* UIButton+Corner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Corner.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +60,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1426B4A222F01394008286CC /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1426B4A322F01394008286CC /* DYFCodeScanner.bundle */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		1490EFBC227F8C0D001698ED = {
 			isa = PBXGroup;
 			children = (
+				1426B4A222F01394008286CC /* Resource */,
 				1490EFDE227F8C9B001698ED /* Classes */,
 				1490EFC7227F8C0D001698ED /* Basic Files */,
 				1490EFC6227F8C0D001698ED /* Products */,
@@ -96,28 +106,20 @@
 		1490EFDE227F8C9B001698ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1426B4A122F01325008286CC /* DYFCodeScanner.h */,
+				1490EFE5227F8C9B001698ED /* DYFCodeScannerMacros.h */,
+				1490EFE8227F8C9B001698ED /* DYFCodeScannerPreView.h */,
+				1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */,
 				1490EFE6227F8C9B001698ED /* DYFCodeScannerViewController.h */,
 				1490EFE0227F8C9B001698ED /* DYFCodeScannerViewController.m */,
 				1490EFDF227F8C9B001698ED /* DYFQRCodeImageView.h */,
 				1490EFE7227F8C9B001698ED /* DYFQRCodeImageView.m */,
-				1490EFE8227F8C9B001698ED /* DYFCodeScannerPreView.h */,
-				1490EFE1227F8C9B001698ED /* DYFCodeScannerPreView.m */,
-				1490EFE2227F8C9B001698ED /* Resource */,
-				1490EFE5227F8C9B001698ED /* DYFCodeScannerMacros.h */,
+				1497280F22DD6BD30073E374 /* UIButton+Corner.h */,
+				1497280E22DD6BD30073E374 /* UIButton+Corner.m */,
 				1490EFE4227F8C9B001698ED /* UIImage+QRCode.h */,
 				1490EFE9227F8C9B001698ED /* UIImage+QRCode.m */,
-				1497280F22DD6BD30073E374 /* UIButton+Additional.h */,
-				1497280E22DD6BD30073E374 /* UIButton+Additional.m */,
 			);
 			path = Classes;
-			sourceTree = "<group>";
-		};
-		1490EFE2227F8C9B001698ED /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-				1490EFE3227F8C9B001698ED /* DYFCodeScanner.bundle */,
-			);
-			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,8 +183,8 @@
 				145BCE1422DC496500E94B99 /* cat49334.jpg in Resources */,
 				1490EFD5227F8C23001698ED /* LaunchScreen.storyboard in Resources */,
 				1490EFD2227F8C23001698ED /* Assets.xcassets in Resources */,
+				1426B4A422F01395008286CC /* DYFCodeScanner.bundle in Resources */,
 				1490EFD0227F8C0D001698ED /* Main.storyboard in Resources */,
-				1490EFEC227F8C9B001698ED /* DYFCodeScanner.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +198,7 @@
 				1490EFCD227F8C0D001698ED /* ViewController.m in Sources */,
 				1490EFD8227F8C23001698ED /* main.m in Sources */,
 				1490EFED227F8C9B001698ED /* DYFQRCodeImageView.m in Sources */,
-				1497281022DD6BD30073E374 /* UIButton+Additional.m in Sources */,
+				1497281022DD6BD30073E374 /* UIButton+Corner.m in Sources */,
 				1490EFEA227F8C9B001698ED /* DYFCodeScannerViewController.m in Sources */,
 				1490EFEB227F8C9B001698ED /* DYFCodeScannerPreView.m in Sources */,
 				1490EFCA227F8C0D001698ED /* AppDelegate.m in Sources */,

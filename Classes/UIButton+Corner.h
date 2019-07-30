@@ -1,5 +1,5 @@
 //
-//  UIButton+Additional.h
+//  UIButton+Corner.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -46,9 +46,9 @@ VVBorderMake(CGFloat width, UIColor *color)
 }
 
 // Block for clipping corner.
-typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *color, CGFloat cornerRadius, VVBorder border);
+typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *color, CGFloat radius, VVBorder border);
 
-@interface UIButton (Additional)
+@interface UIButton (Corner)
 
 // Clips corner.
 - (ClipCornerBlock)clipCorner;

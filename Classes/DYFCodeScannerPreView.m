@@ -25,7 +25,7 @@
 
 #import "DYFCodeScannerPreView.h"
 #import "DYFCodeScannerMacros.h"
-#import "UIButton+Additional.h"
+#import "UIButton+Corner.h"
 
 #define ItemW                  40.f
 #define ItemH                  40.f
@@ -142,8 +142,8 @@
                 recognizer.scale = 1.f;
             }
             
-            if (recognizer.scale > 6.f) {
-                recognizer.scale = 6.f;
+            if (recognizer.scale > 5.f) {
+                recognizer.scale = 5.f;
             }
             
             [self.delegate zoom:recognizer.scale];
@@ -293,9 +293,7 @@
     if (index != 1) {
         UIButton *torchButton = [self viewWithTag:11];
         torchButton.selected = NO;
-        if (DYFRespondsToMethod(self.delegate, turnOffTorch)) {
-            [self.delegate turnOffTorch];
-        }
+        !DYFRespondsToMethod(self.delegate, queryHistory) ?: [self.delegate turnOffTorch];
     }
 }
 
@@ -363,11 +361,11 @@
 
 - (void)addScreenFillRect:(CGContextRef)ctx rect:(CGRect)rect {
     CGContextSetRGBFillColor(ctx, 10/255.0, 10/255.0, 10/255.0, 0.4);
-    CGContextFillRect(ctx, rect); //draw the transparent layer
+    CGContextFillRect(ctx, rect); // draw the transparent layer
 }
 
 - (void)addCenterClearRect:(CGContextRef)ctx rect:(CGRect)rect {
-    CGContextClearRect(ctx, rect); //clear the center rect  of the layer
+    CGContextClearRect(ctx, rect); // clear the center rect  of the layer
 }
 
 - (void)addWhiteRect:(CGContextRef)ctx rect:(CGRect)rect {
@@ -379,11 +377,11 @@
 }
 
 - (void)addCornerLineWithContext:(CGContextRef)ctx rect:(CGRect)rect {
-    //画四个边角
+    // 画四个边角
     CGContextSetLineWidth(ctx, 2);
     CGContextSetRGBStrokeColor(ctx, 52/255.0, 191/255.0, 37/255.0, 1);
     
-    //左上角
+    // 左上角
     CGPoint poinsTopLeftA[] = {
         CGPointMake(rect.origin.x+0.7, rect.origin.y),
         CGPointMake(rect.origin.x+0.7, rect.origin.y+15)
@@ -394,7 +392,7 @@
     };
     [self addLine:poinsTopLeftA pointB:poinsTopLeftB ctx:ctx];
     
-    //左下角
+    // 左下角
     CGPoint poinsBottomLeftA[] = {
         CGPointMake(rect.origin.x+0.7, rect.origin.y+rect.size.height-15),
         CGPointMake(rect.origin.x+0.7, rect.origin.y+rect.size.height)
@@ -405,7 +403,7 @@
     };
     [self addLine:poinsBottomLeftA pointB:poinsBottomLeftB ctx:ctx];
     
-    //右上角
+    // 右上角
     CGPoint poinsTopRightA[] = {
         CGPointMake(rect.origin.x+rect.size.width-15, rect.origin.y+0.7),
         CGPointMake(rect.origin.x+rect.size.width, rect.origin.y+0.7)
@@ -416,7 +414,7 @@
     };
     [self addLine:poinsTopRightA pointB:poinsTopRightB ctx:ctx];
     
-    //右下角
+    // 右下角
     CGPoint poinsBottomRightA[] = {
         CGPointMake(rect.origin.x+rect.size.width-0.7, rect.origin.y+rect.size.height-15),
         CGPointMake(rect.origin.x-0.7+rect.size.width, rect.origin.y+rect.size.height)

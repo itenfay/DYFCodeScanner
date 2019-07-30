@@ -1,5 +1,5 @@
 //
-//  UIButton+Additional.m
+//  UIButton+Corner.m
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,25 +23,24 @@
 // THE SOFTWARE.
 //
 
-#import "UIButton+Additional.h"
+#import "UIButton+Corner.h"
 
 const VVBorder VVBorderNull = {0, nil};
 
-@implementation UIButton (Additional)
+@implementation UIButton (Corner)
 
 - (ClipCornerBlock)clipCorner {
-    ClipCornerBlock block = ^(UIRectCorner rc, UIColor *color, CGFloat cornerRadius, VVBorder border) {
+    ClipCornerBlock block = ^(UIRectCorner rc, UIColor *color, CGFloat radius, VVBorder border) {
         CGRect mRect       = self.bounds;
         CGSize mSize       = mRect.size;
-        CGSize radii       = CGSizeMake(cornerRadius, cornerRadius);
+        CGSize radii       = CGSizeMake(radius, radius);
         
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:mRect byRoundingCorners:rc cornerRadii:radii];
-        UIImage *image = nil;
-        
+        UIImage *mImage = nil;
         if (@available(iOS 10.0, *)) {
             UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:mSize];
             
-            image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+            mImage = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
                 UIGraphicsImageRendererContext  *ctx = rendererContext;
                 
                 CGContextSetFillColorWithColor  (ctx.CGContext, color.CGColor);
@@ -67,12 +66,13 @@ const VVBorder VVBorderNull = {0, nil};
             CGContextAddPath (context, path.CGPath);
             CGContextDrawPath(context, kCGPathFillStroke);
             
-            image = UIGraphicsGetImageFromCurrentImageContext();
+            mImage = UIGraphicsGetImageFromCurrentImageContext();
             
             UIGraphicsEndImageContext();
         }
         
-        [self setBackgroundImage:image forState:UIControlStateNormal];
+        [self setBackgroundImage:mImage forState:UIControlStateNormal];
+        [self setBackgroundImage:mImage forState:UIControlStateHighlighted];
     };
     
     return block;

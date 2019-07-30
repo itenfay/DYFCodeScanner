@@ -1,14 +1,12 @@
 //
 //  ViewController.m
 //
-//  Created by dyf on 2019/5/6.
-//  Copyright © 2019 dyf. All rights reserved.
+//  Created by dyf on 2018/01/28.
+//  Copyright © 2018 dyf. All rights reserved.
 //
 
 #import "ViewController.h"
-#import "DYFCodeScannerViewController.h"
-#import "DYFQRCodeImageView.h"
-#import "UIImage+QRCode.h"
+#import "DYFCodeScanner.h"
 
 @interface ViewController ()
 
@@ -74,7 +72,7 @@
     DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:rect stringValue:@"http://img.shields.io/cocoapods/p/DYFAssistiveTouchView.svg?style=flat" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor]];
     self.cqrc_imageView.image = imageView.image;
 }
-
+ 
 - (void)showResult:(NSString *)value {
     if (self.m_textView.text.length > 0) {
         self.m_textView.text = @"";

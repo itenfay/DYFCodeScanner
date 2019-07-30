@@ -1,8 +1,8 @@
 //
 //  AppDelegate.m
 //
-//  Created by dyf on 2019/5/6.
-//  Copyright © 2019 dyf. All rights reserved.
+//  Created by dyf on 2018/01/28.
+//  Copyright © 2018 dyf. All rights reserved.
 //
 
 #import "AppDelegate.h"

@@ -1,5 +1,5 @@
 <div align=center>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.jpg" width="60%">
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.jpg" width="90%">
 </div>
 
 [如果你觉得能帮助到你，请给一颗小星星。谢谢！(If you think it can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
@@ -11,7 +11,7 @@
 
 ## DYFCodeScanner
 
- 一个二维码/条形码的扫码器，代码简洁，高效。(A QR code and Barcode scanner for iOS. concise code and efficient.)
+ 一个二维码/条形码的扫描器，代码简洁，高效。(A QR code and Barcode scanner for iOS. concise code and efficient.)
 
 ## 技术交流群(群号:155353383) 
 
@@ -32,17 +32,30 @@ pod 'DYFCodeScanner', '~> 1.0.0'
 
 ## 使用说明
 
+- 添加隐私 (Add Privacy)
+
+<div align=left>
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="90%" />
+</div>
+
+```
+<key>NSCameraUsageDescription</key>
+<string>扫描二维码/条形码，允许App访问您的相机？</string>
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>存取照片，允许App访问您的相册？</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>存取照片，允许App访问您的相册？</string>
+```
+
 - 导入头文件 (Import Header)
 
 ```
-#import "DYFCodeScannerViewController.h"
-#import "DYFQRCodeImageView.h"
-#import "UIImage+QRCode.h"
+#import "DYFCodeScanner.h"
 ```
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-&nbsp;&nbsp;支持push和模态两种场景过渡 (Supporting push or modal transition)
+  支持push和模态两种场景过渡 (Supporting push or modal transition)
 
 ```
 // 根据项目的需求，自由选择之一，即可。
