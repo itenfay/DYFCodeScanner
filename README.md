@@ -55,9 +55,9 @@ pod 'DYFCodeScanner', '~> 1.0.0'
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-  支持push和模态两种场景过渡 (Supporting push or modal transition) <br />
-  根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them freely.) <br />
-  当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
+  - 支持push和模态两种场景过渡。 (Supporting push or modal transition.) 
+  - 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.)
+  - 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
 
 ```
 - (IBAction)scan:(id)sender {
