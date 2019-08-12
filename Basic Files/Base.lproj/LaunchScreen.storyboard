@@ -22,12 +22,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DYFCodeScanner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmM-4F-K4C">
-                                <rect key="frame" x="47" y="328" width="320" height="240"/>
+                                <rect key="frame" x="10" y="348" width="394" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="Q2K-Fa-pYi"/>
-                                    <constraint firstAttribute="height" constant="240" id="xgb-Ft-eTj"/>
+                                    <constraint firstAttribute="height" constant="200" id="mRR-eM-dtY"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="42"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="36"/>
                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -35,6 +34,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fmM-4F-K4C" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="et0-dd-sRj"/>
+                            <constraint firstAttribute="trailing" secondItem="fmM-4F-K4C" secondAttribute="trailing" constant="10" id="mZD-AC-kzu"/>
+                            <constraint firstItem="fmM-4F-K4C" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="10" id="rYn-QA-wrM"/>
                             <constraint firstItem="fmM-4F-K4C" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="zLl-hH-yCq"/>
                         </constraints>
                     </view>

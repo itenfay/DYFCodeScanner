@@ -35,8 +35,8 @@
 
 @optional
 
-- (void)queryHistory;
 - (void)zoom:(CGFloat)scale;
+- (void)queryHistory;
 
 @end
 

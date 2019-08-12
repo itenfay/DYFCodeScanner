@@ -26,8 +26,8 @@
 #ifndef DYFCodeScanner_h
 #define DYFCodeScanner_h
 
-#import "UIImage+QRCode.h"
 #import "DYFQRCodeImageView.h"
 #import "DYFCodeScannerViewController.h"
+#import "UIImage+QRCode.h"
 
 #endif /* DYFCodeScanner_h */

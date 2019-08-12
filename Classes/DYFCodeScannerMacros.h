@@ -33,7 +33,7 @@
     #define DYFLog(fmt, ...) {}
 #endif
 
-// Resolving block circular reference - __weak/__block
+// Resolving block circular reference - __weak (arc)
 #ifndef DYFWeakObject
     #if __has_feature(objc_arc)
         #define DYFWeakObject(o) try {} @finally {} __weak __typeof(o) weak##_##o = o;
@@ -42,7 +42,7 @@
     #endif
 #endif
 
-// Resolving block circular reference - __strong
+// Resolving block circular reference - __strong (arc)
 #ifndef DYFStrongObject
     #if __has_feature(objc_arc)
         #define DYFStrongObject(o) try {} @finally {} __strong __typeof(o) strong##_##o = weak##_##o;
@@ -62,15 +62,17 @@
 #define DYFAppendingString(s, e)         [s stringByAppendingString:e]
 // 字符串追加路径
 #define DYFAppendingPathComponent(s, e)  [s stringByAppendingPathComponent:e]
+// Bundle文件路径
+#define DYFBundleFilePath(name)          DYFAppendingPathComponent(DYFBundleName, name)
 
 // 通过图像名称获取图像对象
 #define DYFImageNamed(name)              [UIImage imageNamed:name]
 
-// 通过图像名称获取Bundle包中的图像对象
-#define DYFBundleImageNamed(name)        [UIImage imageNamed:DYFAppendingPathComponent(DYFBundleName, name)]
+// 通过图像名称获取Bundle中的图像对象
+#define DYFBundleImageNamed(name)        [UIImage imageNamed:DYFBundleFilePath(name)]
 
 // 目标对象是否响应方法
-#define DYFRespondsToMethod(target, sel) [target respondsToSelector:@selector(sel)]
+#define DYFRespondsToMethod(target, sel) (target && [target respondsToSelector:@selector(sel)])
 
 // 获取应用单例
 #define DYFSharedApp                     UIApplication.sharedApplication

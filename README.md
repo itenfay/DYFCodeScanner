@@ -1,5 +1,5 @@
 <div align=center>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.jpg" width="80%">
+<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.png" width="90%">
 </div>
 
 [如果你觉得能帮助到你，请给一颗小星星。谢谢！(If you think it can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
@@ -55,19 +55,20 @@ pod 'DYFCodeScanner', '~> 1.0.0'
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-  支持push和模态两种场景过渡 (Supporting push or modal transition)
+  支持push和模态两种场景过渡 (Supporting push or modal transition) <br />
+  根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them freely.) <br />
+  当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
 
 ```
-// 根据项目的需求，自由选择之一，即可。
-// According to the needs of the project, you can choose one of them freely.
 - (IBAction)scan:(id)sender {
-    static BOOL shouldPush = YES;
+    static BOOL shouldPush      = YES;
+    static BOOL naviBarHidden   = YES;
 
     DYFCodeScannerViewController *codesVC = [[DYFCodeScannerViewController alloc] init];
-    codesVC.scanType = DYFCodeScannerTypeAll;
-    codesVC.navigationTitle = @"二维码/条形码";
-    codesVC.tipString = [NSString stringWithFormat:@"将二维码/条形码放入框内，即自动扫描"];
-    codesVC.resultHandler = ^(BOOL result, NSString *stringValue) {
+    codesVC.scanType            = DYFCodeScannerTypeAll;
+    codesVC.navigationTitle     = @"二维码/条形码";
+    codesVC.tipString           = [NSString stringWithFormat:@"将二维码/条形码放入框内，即自动扫描"];
+    codesVC.resultHandler       = ^(BOOL result, NSString *stringValue) {
         if (result) {
             [self showResult:stringValue];
         } else {
@@ -76,6 +77,7 @@ pod 'DYFCodeScanner', '~> 1.0.0'
     };
 
     if (shouldPush) {
+        codesVC.navigationBarHidden = naviBarHidden = !naviBarHidden;
         [self.navigationController pushViewController:codesVC animated:YES];
     } else {
         [self presentViewController:codesVC animated:YES completion:NULL];
@@ -125,7 +127,7 @@ pod 'DYFCodeScanner', '~> 1.0.0'
 3.  生成带中心图像颜色的二维码 (Generating QR code that contains center image, backgroudColor and foregroudColor)
 
 ```
-DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(100, 100, 240, 240) stringValue:@"https://github.com/dgynfi/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
+DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(30, 88, 200, 200) stringValue:@"https://github.com/dgynfi/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
 [self.view addSubview:imageView];
 ```
 
@@ -140,3 +142,7 @@ DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(1
     #endif
 }
 ```
+
+## Sample Codes
+
+- [Sample Codes Gateway](https://github.com/dgynfi/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)

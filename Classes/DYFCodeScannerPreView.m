@@ -74,7 +74,7 @@
     [self addTipLabel];
     [self addItems];
     
-    [self gr_addPinch];
+    [self addPinchGR];
 }
 
 - (void)addLine {
@@ -83,10 +83,10 @@
 
 - (void)addTipLabel {
     self.tipLabel.backgroundColor = [UIColor clearColor];
-    self.tipLabel.numberOfLines = 1;
-    self.tipLabel.font = [UIFont systemFontOfSize:13.f];
-    self.tipLabel.textColor = [UIColor colorWithWhite:0.8f alpha:1.f];
-    self.tipLabel.textAlignment = NSTextAlignmentCenter;
+    self.tipLabel.numberOfLines   = 1;
+    self.tipLabel.font            = [UIFont systemFontOfSize:13.f];
+    self.tipLabel.textColor       = [UIColor colorWithWhite:0.8f alpha:1.f];
+    self.tipLabel.textAlignment   = NSTextAlignmentCenter;
     [self addSubview:self.tipLabel];
 }
 
@@ -94,59 +94,58 @@
     UIButton *backButton = [[UIButton alloc] init];
     [backButton setImage:DYFBundleImageNamed(@"code_scanner_back") forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
-    backButton.tag = 9;
+    backButton.tag       = 9;
     [self addSubview:backButton];
     
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.tag = 10;
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.numberOfLines = 1;
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.font = [UIFont boldSystemFontOfSize:17.f];
+    titleLabel.tag             = 10;
+    titleLabel.textColor       = [UIColor whiteColor];
+    titleLabel.numberOfLines   = 1;
+    titleLabel.textAlignment   = NSTextAlignmentCenter;
+    titleLabel.font            = [UIFont boldSystemFontOfSize:17.f];
     [self addSubview:titleLabel];
     
     UIButton *torchButton = [[UIButton alloc] init];
     [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch") forState:UIControlStateNormal];
     [torchButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
-    torchButton.tag = 11;
+    torchButton.tag       = 11;
     torchButton.showsTouchWhenHighlighted = YES;
     [self addSubview:torchButton];
     
     UIButton *photoButton = [[UIButton alloc] init];
     [photoButton setImage:DYFBundleImageNamed(@"code_scanner_photo") forState:UIControlStateNormal];
     [photoButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
-    photoButton.tag = 12;
+    photoButton.tag       = 12;
     photoButton.showsTouchWhenHighlighted = YES;
     [self addSubview:photoButton];
     
     UIButton *historyButton = [[UIButton alloc] init];
     [historyButton setImage:DYFBundleImageNamed(@"code_scanner_history") forState:UIControlStateNormal];
     [historyButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
-    historyButton.tag = 13;
-    historyButton.hidden = YES;
+    historyButton.tag       = 13;
+    historyButton.hidden    = YES;
     historyButton.showsTouchWhenHighlighted = YES;
     [self addSubview:historyButton];
 }
 
-- (void)gr_addPinch {
-    UIPinchGestureRecognizer *gr_pinch = [[UIPinchGestureRecognizer alloc] init];
-    [gr_pinch addTarget:self action:@selector(pinchAction:)];
-    [self addGestureRecognizer:gr_pinch];
+- (void)addPinchGR {
+    UIPinchGestureRecognizer *pinchGR = [[UIPinchGestureRecognizer alloc] init];
+    [pinchGR addTarget:self action:@selector(pinchAction:)];
+    [self addGestureRecognizer:pinchGR];
 }
 
 - (void)pinchAction:(UIPinchGestureRecognizer *)recognizer {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
+    if (recognizer.state == UIGestureRecognizerStateChanged) {
+        CGFloat scale = recognizer.scale;
+        if (scale < 1.f) {
+            scale = 1.f;
+        }
+        if (scale > 9.f) {
+            scale = 9.f;
+        }
         if (DYFRespondsToMethod(self.delegate, zoom:)) {
-            if (recognizer.scale < 1.f) {
-                recognizer.scale = 1.f;
-            }
-            
-            if (recognizer.scale > 5.f) {
-                recognizer.scale = 5.f;
-            }
-            
-            [self.delegate zoom:recognizer.scale];
+            [self.delegate zoom:scale];
         }
     }
 }
@@ -172,7 +171,7 @@
 
 - (void)updateLayout {
     DYFLog();
-    [self     layoutLine];
+    [self layoutLine];
     [self layoutTipLabel];
     
     CGSize    vSize         = self.bounds.size;
@@ -267,6 +266,7 @@
             DYFLog(@"hasTorch: %d", self.hasTorch);
             if (self.hasTorch) {
                 sender.selected = !sender.selected;
+                
                 if (sender.selected) {
                     !DYFRespondsToMethod(self.delegate, turnOnTorch)  ?: [self.delegate turnOnTorch];
                 } else {
@@ -292,8 +292,8 @@
     
     if (index != 1) {
         UIButton *torchButton = [self viewWithTag:11];
-        torchButton.selected = NO;
-        !DYFRespondsToMethod(self.delegate, queryHistory) ?: [self.delegate turnOffTorch];
+        torchButton.selected  = NO;
+        !DYFRespondsToMethod(self.delegate, turnOffTorch) ?: [self.delegate turnOffTorch];
     }
 }
 
@@ -332,7 +332,7 @@
 - (void)startScan {
     if (_lineImgView) {
         _isReading = YES;
-        [self   updateLayout];
+        [self updateLayout];
         [self startAnimation];
     }
 }
@@ -342,7 +342,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGSize vSize          = self.bounds.size;
+    CGSize vSize = self.bounds.size;
     CGRect screenDrawRect = CGRectMake(0, 0, vSize.width, vSize.height);
     
     CGFloat rX = (screenDrawRect.size.width  - self.transparentArea.width )/2;

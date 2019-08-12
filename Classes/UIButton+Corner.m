@@ -36,7 +36,7 @@ const VVBorder VVBorderNull = {0, nil};
         CGSize radii       = CGSizeMake(radius, radius);
         
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:mRect byRoundingCorners:rc cornerRadii:radii];
-        UIImage *mImage = nil;
+        UIImage *mImage    = nil;
         if (@available(iOS 10.0, *)) {
             UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:mSize];
             

@@ -26,19 +26,32 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+/**
+ A block is used to capture the output with a boolean value and a string value.
+ */
 typedef void (^DYFCaptureOutputResultHandler)(BOOL result, NSString *stringValue);
 
 typedef NS_ENUM(NSInteger, DYFCodeScannerType) {
-    DYFCodeScannerTypeAll = 0, // default, scan QRCode and barcode.
-    DYFCodeScannerTypeQRCode,  // scan QRCode only.
-    DYFCodeScannerTypeBarcode, // scan barcode only.
+    DYFCodeScannerTypeAll = 0, // Default, scan QRCode and barcode.
+    DYFCodeScannerTypeQRCode,  // Scan QRCode only.
+    DYFCodeScannerTypeBarcode, // Scan barcode only.
 };
 
 @interface DYFCodeScannerViewController : UIViewController
+
+/** It is used to hide navigation bar for a code scanner. */
+@property (nonatomic, assign) BOOL navigationBarHidden;
+
+/** The scan type for a code scanner. */
 @property (nonatomic, assign) DYFCodeScannerType scanType;
+
+/** The string is used to prompt users. */
 @property (nonatomic,   copy) NSString *tipString;
+
+/** The title for navigation item. */
 @property (nonatomic,   copy) NSString *navigationTitle;
 
+/** When the property is setted, it is called back after the output is captured. */
 @property (nonatomic,   copy) DYFCaptureOutputResultHandler resultHandler;
 
 @end

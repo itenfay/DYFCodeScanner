@@ -70,6 +70,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (self.navigationBarHidden) {
+        [self hideNavigationBar:YES];
+    }
+    
     if (self.session) {
         [self.session startRunning];
     }
@@ -86,6 +90,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.navigationBarHidden) {
+        [self hideNavigationBar:NO];
+    }
     
     if (self.session) {
         [self.session stopRunning];
@@ -105,18 +113,22 @@
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
         self.navigationItem.title = self.navigationTitle;
         
-        UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(0, 0, 40, 40);
-        [backButton setImage:DYFBundleImageNamed(@"code_scanner_blueBack") forState:UIControlStateNormal];
-        [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-        backButton.imageEdgeInsets = UIEdgeInsetsMake(3, -10, 3, 30);
-        
-        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        spaceItem.width = -20;
-        UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-        self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
-        
-        self.preView.hasNavigationBar = YES;
+        if (!self.navigationBarHidden) {
+            UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            backButton.frame = CGRectMake(0, 0, 40, 40);
+            [backButton setImage:DYFBundleImageNamed(@"code_scanner_blueBack") forState:UIControlStateNormal];
+            [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            backButton.imageEdgeInsets = UIEdgeInsetsMake(3, -10, 3, 30);
+            
+            UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+            spaceItem.width = -20;
+            UIBarButtonItem *backItem  = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+            self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
+            
+            self.preView.hasNavigationBar = YES;
+        } else {
+            self.preView.hasNavigationBar = NO;
+        }
     } else {
         self.preView.hasNavigationBar = NO;
     }
@@ -132,7 +144,7 @@
             if (granted) {
                 [self configureScanner];
             } else {
-                NSString *msg = @"请在“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
+                NSString *msg = @"请在系统“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
                 if (self.resultHandler) {
                     self.resultHandler(NO, msg);
                 }
@@ -145,8 +157,8 @@
 - (DYFCodeScannerPreView *)preView {
     if (!_preView) {
         _preView = [[DYFCodeScannerPreView alloc] initWithFrame:self.view.bounds];
-        _preView.delegate = self;
-        _preView.title = self.navigationTitle;
+        _preView.delegate      = self;
+        _preView.title         = self.navigationTitle;
         _preView.tipLabel.text = self.tipString;
     }
     return _preView;
@@ -227,9 +239,7 @@
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    if (!self.preView.isReading) {
-        return;
-    }
+    if (!self.preView.isReading) { return; }
     
     if (metadataObjects.count > 0) {
         [self.session stopRunning];
@@ -244,26 +254,24 @@
     }
 }
 
-- (void)captureOutputWithCompletion:(void (^)(void))completion {
+- (void)captureOutputWithCompletion:(void (^)(void))completionHandler {
     UINavigationController *nc = self.navigationController;
     if (nc) {
         if (nc.viewControllers.count == 1) {
-            [nc dismissViewControllerAnimated:YES completion:completion];
+            [nc dismissViewControllerAnimated:YES completion:completionHandler];
         } else {
             [nc popViewControllerAnimated:YES];
-            if (completion) {
-                completion();
-            }
+            !completionHandler ?: completionHandler();
         }
     } else {
-        [self dismissViewControllerAnimated:YES completion:completion];
+        [self dismissViewControllerAnimated:YES completion:completionHandler];
     }
 }
 
 - (void)checkTorch {
     AVCaptureDevice *device = self.input.device;
     [device lockForConfiguration:nil];
-    self.preView.hasTorch = device.hasTorch;
+    self.preView.hasTorch   = device.hasTorch;
     [device unlockForConfiguration];
 }
 
@@ -313,7 +321,7 @@
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        ipc.delegate = self;
+        ipc.delegate   = self;
         [self presentViewController:ipc animated:YES completion:NULL];
     } else {
         DYFLog(@"[W]: ImagePicker: SourceType is not available.");

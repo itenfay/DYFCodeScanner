@@ -37,8 +37,7 @@ typedef struct VVBorder VVBorder;
 CG_EXTERN const VVBorder VVBorderNull;
 
 CG_INLINE VVBorder
-VVBorderMake(CGFloat width, UIColor *color)
-{
+VVBorderMake(CGFloat width, UIColor *color) {
     VVBorder b;
     b.width = width;
     b.color = color;
@@ -46,7 +45,10 @@ VVBorderMake(CGFloat width, UIColor *color)
 }
 
 // Block for clipping corner.
-typedef void (^ClipCornerBlock)(UIRectCorner rc, UIColor *color, CGFloat radius, VVBorder border);
+typedef void (^ClipCornerBlock)(UIRectCorner rc,
+                                UIColor *color,
+                                CGFloat radius,
+                                VVBorder border);
 
 @interface UIButton (Corner)
 
