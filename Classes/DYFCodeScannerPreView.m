@@ -137,15 +137,19 @@
 
 - (void)pinchAction:(UIPinchGestureRecognizer *)recognizer {
     if (recognizer.state == UIGestureRecognizerStateChanged) {
-        CGFloat scale = recognizer.scale;
-        if (scale < 1.f) {
-            scale = 1.f;
+        CGFloat maxScale = 5.f;
+        CGFloat minScale = 1.f;
+        
+        CGFloat nowScale = recognizer.scale;
+        if (nowScale > maxScale) {
+            nowScale = maxScale;
         }
-        if (scale > 9.f) {
-            scale = 9.f;
+        if (nowScale < minScale) {
+            nowScale = minScale;
         }
+        
         if (DYFRespondsToMethod(self.delegate, zoom:)) {
-            [self.delegate zoom:scale];
+            [self.delegate zoom:nowScale];
         }
     }
 }
@@ -342,7 +346,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGSize vSize = self.bounds.size;
+    CGSize vSize          = self.bounds.size;
     CGRect screenDrawRect = CGRectMake(0, 0, vSize.width, vSize.height);
     
     CGFloat rX = (screenDrawRect.size.width  - self.transparentArea.width )/2;
@@ -360,7 +364,7 @@
 }
 
 - (void)addScreenFillRect:(CGContextRef)ctx rect:(CGRect)rect {
-    CGContextSetRGBFillColor(ctx, 10/255.0, 10/255.0, 10/255.0, 0.4);
+    CGContextSetRGBFillColor(ctx, 10/255.0, 10/255.0, 10/255.0, 0.5);
     CGContextFillRect(ctx, rect); // draw the transparent layer
 }
 

@@ -145,10 +145,10 @@
                 [self configureScanner];
             } else {
                 NSString *msg = @"请在系统“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
+                DYFLog(@"[W]: %@", msg);
                 if (self.resultHandler) {
                     self.resultHandler(NO, msg);
                 }
-                DYFLog(@"[W]: %@", msg);
             }
         });
     }];
@@ -228,6 +228,14 @@
             break;
     }
     
+    
+    if (self.input.device.isFocusPointOfInterestSupported &&
+        [self.input.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        [self.input.device lockForConfiguration:nil];
+        [self.input.device setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+        [self.input.device unlockForConfiguration];
+    }
+    
     AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession: self.session];
     previewLayer.frame = self.view.layer.bounds;
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
@@ -271,7 +279,7 @@
 - (void)checkTorch {
     AVCaptureDevice *device = self.input.device;
     [device lockForConfiguration:nil];
-    self.preView.hasTorch   = device.hasTorch;
+    self.preView.hasTorch = device.hasTorch;
     [device unlockForConfiguration];
 }
 
@@ -284,25 +292,25 @@
 
 - (void)turnOnTorch {
     DYFLog();
-    AVCaptureDevice *device = self.input.device;
-    // 锁定
-    [device lockForConfiguration:nil];
-    // 判定是否有闪光灯
-    if ([device hasTorch]) {
-        device.torchMode = AVCaptureTorchModeOn;
-    }
-    // 解锁
-    [device unlockForConfiguration];
+    [self configureTorch:YES];
 }
 
 - (void)turnOffTorch {
     DYFLog();
+    [self configureTorch:NO];
+}
+
+- (void)configureTorch:(BOOL)onOrOff {
     AVCaptureDevice *device = self.input.device;
     // 锁定
     [device lockForConfiguration:nil];
-    // 判定是否有闪光灯
+    // 判断是否有闪光灯
     if ([device hasTorch]) {
-        device.torchMode = AVCaptureTorchModeOff;
+        if (onOrOff) {
+            device.torchMode = AVCaptureTorchModeOn;
+        } else {
+            device.torchMode = AVCaptureTorchModeOff;
+        }
     }
     // 解锁
     [device unlockForConfiguration];
@@ -319,11 +327,14 @@
 
 - (void)presentImagePicker {
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        ipc.delegate   = self;
+        ipc.delegate = self;
         [self presentViewController:ipc animated:YES completion:NULL];
+        
     } else {
+        
         DYFLog(@"[W]: ImagePicker: SourceType is not available.");
     }
 }
@@ -341,7 +352,6 @@
         [self captureOutputWithCompletion:^{
             !self.resultHandler ?: self.resultHandler(codeMsg ? YES : NO, codeMsg);
         }];
-        
     });
 }
 
@@ -351,12 +361,8 @@
 
 - (void)zoom:(CGFloat)scale {
     AVCaptureDevice *device = self.input.device;
-    // 锁定
     [device lockForConfiguration:nil];
-    [UIView animateWithDuration:0.3f animations:^{
-        device.videoZoomFactor = scale;
-    }];
-    // 解锁
+    device.videoZoomFactor = scale;
     [device unlockForConfiguration];
 }
 
