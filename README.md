@@ -11,7 +11,7 @@
 
 ## DYFCodeScanner
 
- 一个二维码/条形码的扫描器，代码简洁，高效。(A QR code and Barcode scanner for iOS. concise code and efficient.)
+ 一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
 
 ## 技术交流群(群号:155353383) 
 
@@ -22,7 +22,7 @@
 
 - 支持通过 CocoaPods 安装。
 ```pod install
-pod 'DYFCodeScanner', '~> 1.0.0'
+pod 'DYFCodeScanner', '~> 1.0.1'
 ```
 ## 效果图
 
