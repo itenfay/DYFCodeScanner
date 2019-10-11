@@ -2,8 +2,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "DYFCodeScanner"
-  s.version      = "1.0.1"
-  s.summary      = "QR code and Barcode."
+  s.version      = "1.0.2"
+  s.summary      = "A simple QR code and barcode scanner."
   s.description  = <<-DESC
 	A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.
                    DESC

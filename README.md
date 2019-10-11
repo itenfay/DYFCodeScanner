@@ -7,27 +7,38 @@
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/DYFCodeScanner.svg?style=flat)](http://cocoapods.org/pods/DYFCodeScanner)&nbsp;
 ![CocoaPods](http://img.shields.io/cocoapods/p/DYFCodeScanner.svg?style=flat)&nbsp;
-[![Build Status](https://travis-ci.org/dgynfi/DYFCodeScanner.svg?branch=master)](https://travis-ci.org/dgynfi/DYFCodeScanner)
 
 ## DYFCodeScanner
 
- 一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
+&emsp; 一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
 
 ## 技术交流群(群号:155353383) 
 
-欢迎加入技术交流群，一起探讨技术问题。<br />
-![](https://github.com/dgynfi/DYFCodeScanner/raw/master/images/qq155353383.jpg)
+- 欢迎加入技术交流群，一起探讨技术问题。
+
+<div align=left>
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/qq155353383.jpg" width="20%" />
+</div>
 
 ## 安装
 
 - 支持通过 CocoaPods 安装。
+
 ```pod install
-pod 'DYFCodeScanner', '~> 1.0.1'
+pod 'DYFCodeScanner', '~> 1.0.2'
 ```
+
+或者
+
+```
+# Install lastest version.
+pod 'DYFCodeScanner'
+```
+
 ## 效果图
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="40%" />
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
 </div>
 
 ## 使用说明
@@ -35,7 +46,7 @@ pod 'DYFCodeScanner', '~> 1.0.1'
 - 添加隐私 (Add Privacy)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
 </div>
 
 ```
@@ -54,10 +65,10 @@ pod 'DYFCodeScanner', '~> 1.0.1'
 ```
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
-    
-    - 支持push和模态两种场景过渡。 (Supporting push or modal transition.) 
-    - 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.)
-    - 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
+
+&emsp; 支持push和模态两种场景过渡。 (Supporting push or modal transition.) 
+&emsp; 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.)
+&emsp; 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
 
 ```
 - (IBAction)scan:(id)sender {
@@ -99,7 +110,7 @@ pod 'DYFCodeScanner', '~> 1.0.1'
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
 </div>
 
 ```
@@ -113,7 +124,7 @@ pod 'DYFCodeScanner', '~> 1.0.1'
 2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
 <div align=left>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
 </div>
 
 ```
