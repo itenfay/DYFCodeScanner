@@ -2,7 +2,7 @@
 <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.png" width="90%">
 </div>
 
-[如果你觉得能帮助到你，请给一颗小星星。谢谢！(If you think it can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
+[如果此项目能帮助到你，就请你给一颗星。谢谢！(If this project can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
 
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/DYFCodeScanner.svg?style=flat)](http://cocoapods.org/pods/DYFCodeScanner)&nbsp;
@@ -10,38 +10,36 @@
 
 ## DYFCodeScanner
 
-&emsp; 一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
+一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
 
-## 技术交流群(群号:155353383) 
-
-- 欢迎加入技术交流群，一起探讨技术问题。
+## Group (ID:614799921)
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/qq155353383.jpg" width="20%" />
+&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/g614799921.jpg" width="30%" />
 </div>
 
-## 安装
+## Installation
 
-- 支持通过 CocoaPods 安装。
+Using [CocoaPods](https://cocoapods.org):
 
-```pod install
+```
 pod 'DYFCodeScanner', '~> 1.0.2'
 ```
 
-或者
+Or
 
 ```
 # Install lastest version.
 pod 'DYFCodeScanner'
 ```
 
-## 效果图
+## Preview
 
 <div align=left>
 &emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
 </div>
 
-## 使用说明
+## Usage
 
 - 添加隐私 (Add Privacy)
 
@@ -66,9 +64,9 @@ pod 'DYFCodeScanner'
 
 - 扫描二维码/条形码 (Scanning QR code / Barcode) 
 
-&emsp; 支持push和模态两种场景过渡。 (Supporting push or modal transition.) 
-&emsp; 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.)
-&emsp; 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
+1. 支持push和模态两种场景过渡。 (Supporting push or modal transition.)  <br />
+2. 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.) <br />
+3. 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
 
 ```
 - (IBAction)scan:(id)sender {
@@ -154,6 +152,6 @@ DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(3
 }
 ```
 
-## Sample Codes
+## Code Sample
 
-- [Sample Codes Gateway](https://github.com/dgynfi/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
+- [Code Sample Portal](https://github.com/dgynfi/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
