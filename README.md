@@ -1,8 +1,8 @@
 <div align=center>
-<img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScanner.png" width="90%">
+<img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/CodeScanner.png" width="90%">
 </div>
 
-[如果此项目能帮助到你，就请你给一颗星。谢谢！(If this project can help you, please give it a star. Thanks!)](https://github.com/dgynfi/DYFCodeScanner)
+[如果此项目能帮助到你，就请你给一颗星。谢谢！(If this project can help you, please give it a star. Thanks!)](https://github.com/chenxing640/DYFCodeScanner)
 
 [![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
 [![CocoaPods](http://img.shields.io/cocoapods/v/DYFCodeScanner.svg?style=flat)](http://cocoapods.org/pods/DYFCodeScanner)&nbsp;
@@ -15,7 +15,7 @@
 ## Group (ID:614799921)
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/g614799921.jpg" width="30%" />
+&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/g614799921.jpg" width="30%" />
 </div>
 
 ## Installation
@@ -36,7 +36,7 @@ pod 'DYFCodeScanner'
 ## Preview
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
+&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
 </div>
 
 ## Usage
@@ -44,7 +44,7 @@ pod 'DYFCodeScanner'
 - 添加隐私 (Add Privacy)
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
+&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
 </div>
 
 ```
@@ -108,7 +108,7 @@ pod 'DYFCodeScanner'
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
+&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
 </div>
 
 ```
@@ -122,7 +122,7 @@ pod 'DYFCodeScanner'
 2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
 <div align=left>
-&emsp; <img src="https://github.com/dgynfi/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
+&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
 </div>
 
 ```
@@ -136,7 +136,7 @@ pod 'DYFCodeScanner'
 3.  生成带中心图像颜色的二维码 (Generating QR code that contains center image, backgroudColor and foregroudColor)
 
 ```
-DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(30, 88, 200, 200) stringValue:@"https://github.com/dgynfi/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
+DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(30, 88, 200, 200) stringValue:@"https://github.com/chenxing640/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
 [self.view addSubview:imageView];
 ```
 
@@ -154,4 +154,4 @@ DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(3
 
 ## Code Sample
 
-- [Code Sample Portal](https://github.com/dgynfi/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
+- [Code Sample Portal](https://github.com/chenxing640/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
