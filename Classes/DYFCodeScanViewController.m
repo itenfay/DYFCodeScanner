@@ -1,5 +1,5 @@
 //
-//  DYFCodeScannerViewController.m
+//  DYFCodeScanViewController.m
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,92 +23,134 @@
 // THE SOFTWARE.
 //
 
-#import "DYFCodeScannerViewController.h"
-#import "DYFCodeScannerPreView.h"
-#import "DYFCodeScannerMacros.h"
+#import "DYFCodeScanViewController.h"
+#import "DYFCodeScanPreview.h"
+#import "DYFCodeScanMacros.h"
 #import "UIImage+QRCode.h"
 
-@interface DYFCodeScannerViewController () <AVCaptureMetadataOutputObjectsDelegate, DYFCodeScannerPreViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIGestureRecognizerDelegate>
+@interface DYFCodeScanViewController ()
+<
+AVCaptureMetadataOutputObjectsDelegate,
+DYFCodeScanPreviewDelegate,
+UINavigationControllerDelegate,
+UIImagePickerControllerDelegate,
+UIGestureRecognizerDelegate
+>
 @property (nonatomic, strong) AVCaptureSession      *session;  // 会话
 @property (nonatomic, strong) AVCaptureDeviceInput  *input;    // 输入流
-@property (nonatomic, strong) DYFCodeScannerPreView *preView;  // 预览视图
+@property (nonatomic, strong) DYFCodeScanPreview *preview;     // 预览视图
+@property (nonatomic, strong) dispatch_queue_t sessionQueue;
 @end
 
-@implementation DYFCodeScannerViewController
+@implementation DYFCodeScanViewController
 
-- (instancetype)init {
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (instancetype)init
+{
     self = [super init];
     if (self) {
-        [self configure];
+        [self setup];
     }
     return self;
 }
 
-- (void)configure {
-    self.scanType = DYFCodeScannerTypeAll;
+- (void)setup
+{
+    self.scanType = DYFCodeScanTypeAll;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
-- (BOOL)shouldAutorotate {
-    return NO;
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    [self createQueue];
     [self configureNavigationBar];
-    [self addPreView];
+    [self addPreview];
     [self requestAccess];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)createQueue
+{
+    dispatch_queue_t sessionQueue = dispatch_queue_create("com.scan.sessionQueue", DISPATCH_QUEUE_SERIAL);
+    self.sessionQueue = sessionQueue;
+}
+
+- (void)_startSessionRunning
+{
+    @DYFWeakObject(self);
+    dispatch_async(self.sessionQueue, ^{
+        @DYFStrongObject(self);
+        if (strong_self.session && ![strong_self.session isRunning]) {
+            [strong_self.session startRunning];
+        }
+    });
+}
+
+- (void)_stopSessionRunning
+{
+    @DYFWeakObject(self);
+    dispatch_async(self.sessionQueue, ^{
+        @DYFStrongObject(self);
+        if (strong_self.session && [strong_self.session isRunning]) {
+            [strong_self.session stopRunning];
+        }
+    });
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     
     if (self.navigationBarHidden) {
         [self hideNavigationBar:YES];
     }
     
-    if (self.session) {
-        [self.session startRunning];
-    }
-    
-    [self.preView startScan];
+    [self _startSessionRunning];
+    [self.preview startScan];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated
+{
     [super viewDidAppear:animated];
     if (self.navigationController) {
         self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     
     if (self.navigationBarHidden) {
         [self hideNavigationBar:NO];
     }
     
-    if (self.session) {
-        [self.session stopRunning];
-    }
-    
-    [self.preView stopScan];
+    [self _stopSessionRunning];
+    [self.preview stopScan];
 }
 
-- (void)hideNavigationBar:(BOOL)hidden {
+- (void)hideNavigationBar:(BOOL)hidden
+{
     if (self.navigationController) {
         self.navigationController.navigationBarHidden = hidden;
     }
 }
 
-- (void)configureNavigationBar {
+- (void)configureNavigationBar
+{
     if (self.navigationController) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
         self.navigationItem.title = self.navigationTitle;
@@ -116,7 +158,7 @@
         if (!self.navigationBarHidden) {
             UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
             backButton.frame = CGRectMake(0, 0, 40, 40);
-            [backButton setImage:DYFBundleImageNamed(@"code_scanner_blueBack") forState:UIControlStateNormal];
+            [backButton setImage:DYFBundleImageNamed(@"code_scan_blueBack") forState:UIControlStateNormal];
             [backButton addTarget:self action:@selector(backButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
             backButton.imageEdgeInsets = UIEdgeInsetsMake(3, -10, 3, 30);
             
@@ -125,50 +167,42 @@
             UIBarButtonItem *backItem  = [[UIBarButtonItem alloc] initWithCustomView:backButton];
             self.navigationItem.leftBarButtonItems = @[spaceItem, backItem];
             
-            self.preView.hasNavigationBar = YES;
+            self.preview.hasNavigationBar = YES;
         } else {
-            self.preView.hasNavigationBar = NO;
+            self.preview.hasNavigationBar = NO;
         }
     } else {
-        self.preView.hasNavigationBar = NO;
+        self.preview.hasNavigationBar = NO;
     }
 }
 
-- (void)backButtonClicked:(UIButton *)sender {
+- (void)backButtonClicked:(UIButton *)sender
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)requestAccess {
+- (void)requestAccess
+{
     [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (granted) {
-                [self configureScanner];
+                [self onPreview];
             } else {
                 NSString *msg = @"请在系统“设置”-“隐私”-“相机”选项中，允许App访问你的相机";
                 DYFLog(@"[W]: %@", msg);
-                if (self.resultHandler) {
-                    self.resultHandler(NO, msg);
-                }
+                !self.resultHandler ?: self.resultHandler(NO, msg);
             }
         });
     }];
 }
 
-- (DYFCodeScannerPreView *)preView {
-    if (!_preView) {
-        _preView = [[DYFCodeScannerPreView alloc] initWithFrame:self.view.bounds];
-        _preView.delegate      = self;
-        _preView.title         = self.navigationTitle;
-        _preView.tipLabel.text = self.tipString;
-    }
-    return _preView;
+- (void)addPreview
+{
+    [self.view addSubview:self.preview];
 }
 
-- (void)addPreView {
-    [self.view addSubview:self.preView];
-}
-
-- (void)configureScanner {
+- (void)onPreview
+{
     // 获取摄像设备
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // 创建输入流
@@ -187,7 +221,6 @@
     if ([self.session canAddInput:input]) {
         [self.session addInput:input];
     }
-    
     if([self.session canAddOutput:output]) {
         [self.session addOutput:output];
     }
@@ -197,7 +230,7 @@
     
     // 设置扫码支持的编码格式
     switch (self.scanType) {
-        case DYFCodeScannerTypeAll:
+        case DYFCodeScanTypeAll:
             output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode,
                                            AVMetadataObjectTypeEAN13Code,
                                            AVMetadataObjectTypeEAN8Code,
@@ -208,12 +241,10 @@
                                            AVMetadataObjectTypeCode128Code,
                                            AVMetadataObjectTypePDF417Code];
             break;
-            
-        case DYFCodeScannerTypeQRCode:
+        case DYFCodeScanTypeQRCode:
             output.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
             break;
-            
-        case DYFCodeScannerTypeBarcode:
+        case DYFCodeScanTypeBarcode:
             output.metadataObjectTypes = @[AVMetadataObjectTypeEAN13Code,
                                            AVMetadataObjectTypeEAN8Code,
                                            AVMetadataObjectTypeUPCECode,
@@ -223,11 +254,8 @@
                                            AVMetadataObjectTypeCode128Code,
                                            AVMetadataObjectTypePDF417Code];
             break;
-            
-        default:
-            break;
+        default: break;
     }
-    
     
     if (self.input.device.isFocusPointOfInterestSupported &&
         [self.input.device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
@@ -239,19 +267,19 @@
     AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession: self.session];
     previewLayer.frame = self.view.layer.bounds;
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    
     // 将预览层添加到界面中
     [self.view.layer insertSublayer:previewLayer atIndex:0];
     
-    [self.session startRunning];
+    [self _startSessionRunning];
 }
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection {
-    if (!self.preView.isReading) { return; }
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
+{
+    if (!self.preview.isReading) { return; }
     
     if (metadataObjects.count > 0) {
-        [self.session stopRunning];
-        [self.preView stopScan];
+        [self _stopSessionRunning];
+        [self.preview stopScan];
         
         AVMetadataMachineReadableCodeObject *metadataObject = metadataObjects[0];
         NSString *result = metadataObject.stringValue;
@@ -262,7 +290,8 @@
     }
 }
 
-- (void)captureOutputWithCompletion:(void (^)(void))completionHandler {
+- (void)captureOutputWithCompletion:(void (^)(void))completionHandler
+{
     UINavigationController *nc = self.navigationController;
     if (nc) {
         if (nc.viewControllers.count == 1) {
@@ -279,28 +308,29 @@
 - (void)checkTorch {
     AVCaptureDevice *device = self.input.device;
     [device lockForConfiguration:nil];
-    self.preView.hasTorch = device.hasTorch;
+    self.preview.hasTorch = device.hasTorch;
     [device unlockForConfiguration];
 }
 
-#pragma mark - DYFCodeScannerPreViewDelegate
+#pragma mark - DYFCodeScanPreviewDelegate
 
-- (void)back {
-    DYFLog();
+- (void)back
+{
     [self captureOutputWithCompletion:NULL];
 }
 
-- (void)turnOnTorch {
-    DYFLog();
-    [self configureTorch:YES];
+- (void)turnOnTorch
+{
+    [self onTorch:YES];
 }
 
-- (void)turnOffTorch {
-    DYFLog();
-    [self configureTorch:NO];
+- (void)turnOffTorch
+{
+    [self onTorch:NO];
 }
 
-- (void)configureTorch:(BOOL)onOrOff {
+- (void)onTorch:(BOOL)onOrOff
+{
     AVCaptureDevice *device = self.input.device;
     // 锁定
     [device lockForConfiguration:nil];
@@ -316,34 +346,33 @@
     [device unlockForConfiguration];
 }
 
-- (void)openPhotoLibrary {
-    DYFLog();
+- (void)openPhotoLibrary
+{
     [self presentImagePicker];
 }
 
-- (void)queryHistory {
+- (void)queryHistory
+{
     DYFLog();
 }
 
-- (void)presentImagePicker {
+- (void)presentImagePicker
+{
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-        
         UIImagePickerController *ipc = [[UIImagePickerController alloc] init];
         ipc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         ipc.delegate = self;
         [self presentViewController:ipc animated:YES completion:NULL];
-        
     } else {
-        
         DYFLog(@"[W]: ImagePicker: SourceType is not available.");
     }
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
+{
     [picker dismissViewControllerAnimated:YES completion:NULL];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         
         NSString *codeMsg = image.yf_stringValue;
@@ -359,19 +388,32 @@
     [picker dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void)zoom:(CGFloat)scale {
+- (void)zoom:(CGFloat)scale
+{
     AVCaptureDevice *device = self.input.device;
     [device lockForConfiguration:nil];
     device.videoZoomFactor = scale;
     [device unlockForConfiguration];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (DYFCodeScanPreview *)preview
+{
+    if (!_preview) {
+        _preview = [[DYFCodeScanPreview alloc] initWithFrame:self.view.bounds];
+        _preview.delegate      = self;
+        _preview.title         = self.navigationTitle;
+        _preview.tipLabel.text = self.tipString;
+    }
+    return _preview;
 }
 
-- (void)dealloc {
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+}
+
+- (void)dealloc
+{
     DYFLog();
 }
 

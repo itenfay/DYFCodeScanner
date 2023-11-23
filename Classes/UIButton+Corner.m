@@ -36,11 +36,10 @@ const VVBorder VVBorderNull = {0, nil};
         CGSize radii       = CGSizeMake(radius, radius);
         
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:mRect byRoundingCorners:rc cornerRadii:radii];
-        UIImage *mImage    = nil;
+        UIImage *newImage  = nil;
         if (@available(iOS 10.0, *)) {
             UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:mSize];
-            
-            mImage = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+            newImage = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
                 UIGraphicsImageRendererContext  *ctx = rendererContext;
                 
                 CGContextSetFillColorWithColor  (ctx.CGContext, color.CGColor);
@@ -54,7 +53,6 @@ const VVBorder VVBorderNull = {0, nil};
             }];
         } else {
             UIGraphicsBeginImageContext(mSize);
-            
             CGContextRef context = UIGraphicsGetCurrentContext();
             
             CGContextSetFillColorWithColor  (context, color.CGColor);
@@ -66,13 +64,12 @@ const VVBorder VVBorderNull = {0, nil};
             CGContextAddPath (context, path.CGPath);
             CGContextDrawPath(context, kCGPathFillStroke);
             
-            mImage = UIGraphicsGetImageFromCurrentImageContext();
-            
+            newImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
         }
         
-        [self setBackgroundImage:mImage forState:UIControlStateNormal];
-        [self setBackgroundImage:mImage forState:UIControlStateHighlighted];
+        [self setBackgroundImage:newImage forState:UIControlStateNormal];
+        [self setBackgroundImage:newImage forState:UIControlStateHighlighted];
     };
     
     return block;

@@ -1,5 +1,5 @@
 //
-//  DYFCodeScannerPreView.h
+//  DYFCodeScanViewController.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -26,32 +26,33 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@protocol DYFCodeScannerPreViewDelegate <NSObject>
+/**
+ A block is used to capture the output with a boolean value and a string value.
+ */
+typedef void (^DYFCaptureOutputResultHandler)(BOOL result, NSString *stringValue);
 
-- (void)back;
-- (void)turnOnTorch;
-- (void)turnOffTorch;
-- (void)openPhotoLibrary;
+typedef NS_ENUM(NSInteger, DYFCodeScanType)
+{
+    DYFCodeScanTypeAll = 0, // Default, scan QRCode and barcode.
+    DYFCodeScanTypeQRCode,  // Scan QRCode only.
+    DYFCodeScanTypeBarcode, // Scan barcode only.
+};
 
-@optional
+@interface DYFCodeScanViewController : UIViewController
 
-- (void)zoom:(CGFloat)scale;
-- (void)queryHistory;
+/** It is used to hide navigation bar for a code scanner. */
+@property (nonatomic, assign) BOOL navigationBarHidden;
 
-@end
+/** The scan type for a code scanner. */
+@property (nonatomic, assign) DYFCodeScanType scanType;
 
-@interface DYFCodeScannerPreView : UIView
+/** The string is used to prompt users. */
+@property (nonatomic, copy) NSString *tipString;
 
-@property (nonatomic,   weak) id<DYFCodeScannerPreViewDelegate> delegate;
-@property (nonatomic,   copy) NSString *title;
+/** The title for navigation item. */
+@property (nonatomic, copy) NSString *navigationTitle;
 
-@property (nonatomic, assign) CGSize transparentArea;
-@property (nonatomic, assign) BOOL isReading;
-@property (nonatomic, strong) UILabel *tipLabel;
-@property (nonatomic, assign) BOOL hasTorch;
-@property (nonatomic, assign) BOOL hasNavigationBar;
-
-- (void)startScan;
-- (void)stopScan;
+/** When the property is setted, it is called back after the output is captured. */
+@property (nonatomic, copy) DYFCaptureOutputResultHandler resultHandler;
 
 @end

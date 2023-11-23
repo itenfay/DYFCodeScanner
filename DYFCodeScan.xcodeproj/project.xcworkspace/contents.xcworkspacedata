@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:DYFCodeScanner.xcodeproj">
+      location = "self:/Users/jc/Documents/Workstation/GitHub/DYFCodeScanner/DYFCodeScan.xcodeproj">
    </FileRef>
 </Workspace>

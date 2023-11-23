@@ -39,10 +39,10 @@
     
     NSArray<CIFeature *> *features = [detector featuresInImage:ciImage];
     for (CIQRCodeFeature *codef in features) {
-#if DEBUG
+    #if DEBUG
         // 打印二维码中的信息
         NSLog(@"QRCode Feature Message: %@", codef.messageString);
-#endif
+    #endif
     }
     CIQRCodeFeature *codef = (CIQRCodeFeature *)features.firstObject;
     

@@ -30,13 +30,17 @@
 
 + (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue;
 + (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage;
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage centerSize:(CGSize)centerSize;
 + (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor;
 + (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage;
++ (instancetype)createWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage centerSize:(CGSize)centerSize;
 
 - (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue;
 - (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage;
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue centerImage:(UIImage *)centerImage centerSize:(CGSize)centerSize;
 
 - (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor;
 - (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage;
+- (instancetype)initWithFrame:(CGRect)frame stringValue:(NSString *)stringValue backgroudColor:(UIColor *)backgroudColor foregroudColor:(UIColor *)foregroudColor centerImage:(UIImage *)centerImage centerSize:(CGSize)centerSize;
 
 @end

@@ -1,5 +1,5 @@
 //
-//  DYFCodeScanner.h
+//  DYFCodeScan.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,11 +23,12 @@
 // THE SOFTWARE.
 //
 
-#ifndef DYFCodeScanner_h
-#define DYFCodeScanner_h
+#ifndef DYFCodeScan_h
+#define DYFCodeScan_h
 
 #import "DYFQRCodeImageView.h"
-#import "DYFCodeScannerViewController.h"
+#import "DYFCodeScanViewController.h"
 #import "UIImage+QRCode.h"
+#import "UIButton+Corner.h"
 
-#endif /* DYFCodeScanner_h */
+#endif

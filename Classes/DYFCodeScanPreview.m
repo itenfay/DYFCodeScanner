@@ -1,5 +1,5 @@
 //
-//  DYFCodeScannerPreView.m
+//  DYFCodeScanPreview.m
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,23 +23,23 @@
 // THE SOFTWARE.
 //
 
-#import "DYFCodeScannerPreView.h"
-#import "DYFCodeScannerMacros.h"
+#import "DYFCodeScanPreview.h"
+#import "DYFCodeScanMacros.h"
 #import "UIButton+Corner.h"
 
 #define ItemW                  40.f
 #define ItemH                  40.f
 
-@interface DYFCodeScannerPreView ()
+@interface DYFCodeScanPreview ()
 @property (nonatomic, strong) UIImageView *lineImgView;
 @end
 
-@implementation DYFCodeScannerPreView
+@implementation DYFCodeScanPreview
 
 - (UIImageView *)lineImgView {
     if (!_lineImgView) {
         _lineImgView = [[UIImageView alloc] init];
-        _lineImgView.image = DYFBundleImageNamed(@"code_scanner_line");
+        _lineImgView.image = DYFBundleImageNamed(@"code_scan_line");
     }
     return _lineImgView;
 }
@@ -92,7 +92,7 @@
 
 - (void)addItems {
     UIButton *backButton = [[UIButton alloc] init];
-    [backButton setImage:DYFBundleImageNamed(@"code_scanner_back") forState:UIControlStateNormal];
+    [backButton setImage:DYFBundleImageNamed(@"code_scan_back") forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     backButton.tag       = 9;
     [self addSubview:backButton];
@@ -107,21 +107,21 @@
     [self addSubview:titleLabel];
     
     UIButton *torchButton = [[UIButton alloc] init];
-    [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch") forState:UIControlStateNormal];
+    [torchButton setImage:DYFBundleImageNamed(@"code_scan_torch") forState:UIControlStateNormal];
     [torchButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     torchButton.tag       = 11;
     torchButton.showsTouchWhenHighlighted = YES;
     [self addSubview:torchButton];
     
     UIButton *photoButton = [[UIButton alloc] init];
-    [photoButton setImage:DYFBundleImageNamed(@"code_scanner_photo") forState:UIControlStateNormal];
+    [photoButton setImage:DYFBundleImageNamed(@"code_scan_photo") forState:UIControlStateNormal];
     [photoButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     photoButton.tag       = 12;
     photoButton.showsTouchWhenHighlighted = YES;
     [self addSubview:photoButton];
     
     UIButton *historyButton = [[UIButton alloc] init];
-    [historyButton setImage:DYFBundleImageNamed(@"code_scanner_history") forState:UIControlStateNormal];
+    [historyButton setImage:DYFBundleImageNamed(@"code_scan_history") forState:UIControlStateNormal];
     [historyButton addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
     historyButton.tag       = 13;
     historyButton.hidden    = YES;
@@ -169,7 +169,7 @@
     _hasTorch = hasTorch;
     if (hasTorch) {
         UIButton *torchButton = [self viewWithTag:11];
-        [torchButton setImage:DYFBundleImageNamed(@"code_scanner_torch_on") forState:UIControlStateSelected];
+        [torchButton setImage:DYFBundleImageNamed(@"code_scan_torch_on") forState:UIControlStateSelected];
     }
 }
 

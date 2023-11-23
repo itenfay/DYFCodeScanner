@@ -6,7 +6,7 @@
 //
 
 #import "ViewController.h"
-#import "DYFCodeScanner.h"
+#import "DYFCodeScan.h"
 
 @interface ViewController ()
 
@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"扫描器演示";
+    self.navigationItem.title = @"扫码演示";
     [self addActionForImageView];
 }
 
@@ -40,8 +40,8 @@
     static BOOL shouldPush      = YES;
     static BOOL naviBarHidden   = YES;
     
-    DYFCodeScannerViewController *codesVC = [[DYFCodeScannerViewController alloc] init];
-    codesVC.scanType            = DYFCodeScannerTypeAll;
+    DYFCodeScanViewController *codesVC = [[DYFCodeScanViewController alloc] init];
+    codesVC.scanType            = DYFCodeScanTypeAll;
     codesVC.navigationTitle     = @"二维码/条形码";
     codesVC.tipString           = [NSString stringWithFormat:@"将二维码/条形码放入框内，即自动扫描"];
     codesVC.resultHandler       = ^(BOOL result, NSString *stringValue) {
@@ -84,9 +84,9 @@
 - (void)recognizeQRCode:(UILongPressGestureRecognizer *)recognizer {
     UIImage *qrcodeImage = ((DYFQRCodeImageView *)recognizer.view).image;
     NSString *stringValue = [qrcodeImage yf_stringValue];
-#if DEBUG
+    #if DEBUG
     NSLog(@"stringValue: %@", stringValue);
-#endif
+    #endif
     
     if (@available(iOS 8.0 ,*)) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"获取二维码的内容" preferredStyle:UIAlertControllerStyleAlert];

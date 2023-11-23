@@ -1,5 +1,5 @@
 //
-//  DYFCodeScannerMacros.h
+//  DYFCodeScanMacros.h
 //
 //  Created by dyf on 2018/01/28.
 //  Copyright © 2018 dyf. All rights reserved.
@@ -23,8 +23,8 @@
 // THE SOFTWARE.
 //
 
-#ifndef DYFCodeScannerMacros_h
-#define DYFCodeScannerMacros_h
+#ifndef DYFCodeScanMacros_h
+#define DYFCodeScanMacros_h
 
 // 日志输出
 #ifdef DEBUG
@@ -56,7 +56,7 @@
 #define DYFQRCodeMeImageH                100.f
 
 // Bundle名称
-#define DYFBundleName                    @"DYFCodeScanner.bundle"
+#define DYFBundleName                    @"DYFCodeScan.bundle"
 
 // 字符串追加字符串
 #define DYFAppendingString(s, e)         [s stringByAppendingString:e]
@@ -80,4 +80,4 @@
 // 获取状态栏高度
 #define DYFStatusBarHeight               DYFSharedApp.statusBarFrame.size.height
 
-#endif /* DYFCodeScannerMacros_h */
+#endif

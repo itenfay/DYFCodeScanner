@@ -23,7 +23,7 @@
 Using [CocoaPods](https://cocoapods.org):
 
 ```
-pod 'DYFCodeScanner', '~> 1.0.2'
+pod 'DYFCodeScanner', '~> 1.2.0'
 ```
 
 Or
@@ -59,10 +59,10 @@ pod 'DYFCodeScanner'
 - 导入头文件 (Import Header)
 
 ```
-#import "DYFCodeScanner.h"
+#import "DYFCodeScan.h"
 ```
 
-- 扫描二维码/条形码 (Scanning QR code / Barcode) 
+- 扫描二维码/条形码 (Scanning QRcode / Barcode) 
 
 1. 支持push和模态两种场景过渡。 (Supporting push or modal transition.)  <br />
 2. 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.) <br />
@@ -73,8 +73,8 @@ pod 'DYFCodeScanner'
     static BOOL shouldPush      = YES;
     static BOOL naviBarHidden   = YES;
 
-    DYFCodeScannerViewController *codesVC = [[DYFCodeScannerViewController alloc] init];
-    codesVC.scanType            = DYFCodeScannerTypeAll;
+    DYFCodeScanViewController *codesVC = [[DYFCodeScanViewController alloc] init];
+    codesVC.scanType            = DYFCodeScanTypeAll;
     codesVC.navigationTitle     = @"二维码/条形码";
     codesVC.tipString           = [NSString stringWithFormat:@"将二维码/条形码放入框内，即自动扫描"];
     codesVC.resultHandler       = ^(BOOL result, NSString *stringValue) {
