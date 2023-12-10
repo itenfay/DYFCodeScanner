@@ -9,11 +9,9 @@
 #import "DYFCodeScan.h"
 
 @interface ViewController ()
-
 @property (weak, nonatomic) IBOutlet UITextView         *m_textView;
 @property (weak, nonatomic) IBOutlet DYFQRCodeImageView *qrc_imageView;
 @property (weak, nonatomic) IBOutlet DYFQRCodeImageView *cqrc_imageView;
-
 @end
 
 @implementation ViewController
@@ -56,6 +54,7 @@
         codesVC.navigationBarHidden = naviBarHidden = !naviBarHidden;
         [self.navigationController pushViewController:codesVC animated:YES];
     } else {
+        codesVC.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:codesVC animated:YES completion:NULL];
     }
     

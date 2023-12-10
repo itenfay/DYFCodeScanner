@@ -106,8 +106,8 @@
 		1490EFDE227F8C9B001698ED /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1490EFE5227F8C9B001698ED /* DYFCodeScanMacros.h */,
 				1426B4A122F01325008286CC /* DYFCodeScan.h */,
+				1490EFE5227F8C9B001698ED /* DYFCodeScanMacros.h */,
 				1490EFE8227F8C9B001698ED /* DYFCodeScanPreview.h */,
 				1490EFE1227F8C9B001698ED /* DYFCodeScanPreview.m */,
 				1490EFE6227F8C9B001698ED /* DYFCodeScanViewController.h */,
@@ -346,7 +346,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = WL2647US2R;
 				INFOPLIST_FILE = "$(SRCROOT)/Basic Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "扫码器";
@@ -355,7 +355,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tools.codescan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -369,7 +369,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = WL2647US2R;
 				INFOPLIST_FILE = "$(SRCROOT)/Basic Files/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "扫码器";
@@ -378,7 +378,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tools.codescan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

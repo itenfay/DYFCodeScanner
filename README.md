@@ -23,7 +23,7 @@
 Using [CocoaPods](https://cocoapods.org):
 
 ```
-pod 'DYFCodeScanner', '~> 1.2.0'
+pod 'DYFCodeScanner', '~> 1.2.1'
 ```
 
 Or
