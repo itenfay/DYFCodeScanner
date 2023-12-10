@@ -63,14 +63,9 @@ UIGestureRecognizerDelegate
 {
     self = [super init];
     if (self) {
-        [self setup];
+        self.scanType = DYFCodeScanTypeAll;
     }
     return self;
-}
-
-- (void)setup
-{
-    self.scanType = DYFCodeScanTypeAll;
 }
 
 - (void)viewDidLoad
@@ -78,6 +73,7 @@ UIGestureRecognizerDelegate
     [super viewDidLoad];
     [self createQueue];
     [self configureNavigationBar];
+    [self setup];
     [self addPreview];
     [self requestAccess];
 }
@@ -90,6 +86,9 @@ UIGestureRecognizerDelegate
 
 - (void)_startSessionRunning
 {
+#if TARGET_OS_SIMULATOR
+    return;
+#else
     @DYFWeakObject(self);
     dispatch_async(self.sessionQueue, ^{
         @DYFStrongObject(self);
@@ -97,10 +96,14 @@ UIGestureRecognizerDelegate
             [strong_self.session startRunning];
         }
     });
+#endif
 }
 
 - (void)_stopSessionRunning
 {
+#if TARGET_OS_SIMULATOR
+    return;
+#else
     @DYFWeakObject(self);
     dispatch_async(self.sessionQueue, ^{
         @DYFStrongObject(self);
@@ -108,6 +111,7 @@ UIGestureRecognizerDelegate
             [strong_self.session stopRunning];
         }
     });
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -176,6 +180,10 @@ UIGestureRecognizerDelegate
     }
 }
 
+- (void)setup {
+    
+}
+
 - (void)backButtonClicked:(UIButton *)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -203,6 +211,9 @@ UIGestureRecognizerDelegate
 
 - (void)onPreview
 {
+    #if TARGET_OS_SIMULATOR
+        return;
+    #endif
     // 获取摄像设备
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // 创建输入流

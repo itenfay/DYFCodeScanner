@@ -55,4 +55,10 @@ typedef NS_ENUM(NSInteger, DYFCodeScanType)
 /** When the property is setted, it is called back after the output is captured. */
 @property (nonatomic, copy) DYFCaptureOutputResultHandler resultHandler;
 
+/** You can override to customize  the navigation bar. */
+- (void)configureNavigationBar;
+
+/** You can override to set up. */
+- (void)setup;
+
 @end
