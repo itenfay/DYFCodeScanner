@@ -1,8 +1,8 @@
 //
 //  DYFCodeScanViewController.m
 //
-//  Created by dyf on 2018/01/28.
-//  Copyright © 2018 dyf. All rights reserved.
+//  Created by Tenfay on 2018/01/28.
+//  Copyright © 2018 Tenfay. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -211,9 +211,9 @@ UIGestureRecognizerDelegate
 
 - (void)onPreview
 {
-    #if TARGET_OS_SIMULATOR
-        return;
-    #endif
+#if TARGET_OS_SIMULATOR
+    return;
+#endif
     // 获取摄像设备
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     // 创建输入流

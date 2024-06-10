@@ -1,8 +1,8 @@
 //
 //  DYFCodeScanMacros.h
 //
-//  Created by dyf on 2018/01/28.
-//  Copyright © 2018 dyf. All rights reserved.
+//  Created by Tenfay on 2018/01/28.
+//  Copyright © 2018 Tenfay. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,27 +28,27 @@
 
 // 日志输出
 #ifdef DEBUG
-    #define DYFLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#define DYFLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 #else
-    #define DYFLog(fmt, ...) {}
+#define DYFLog(fmt, ...) {}
 #endif
 
 // Resolving block circular reference - __weak (arc)
 #ifndef DYFWeakObject
-    #if __has_feature(objc_arc)
-        #define DYFWeakObject(o) try {} @finally {} __weak __typeof(o) weak##_##o = o;
-    #else
-        #define DYFWeakObject(o) try {} @finally {} __block __typeof(o) weak##_##o = o;
-    #endif
+#if __has_feature(objc_arc)
+#define DYFWeakObject(o) try {} @finally {} __weak __typeof(o) weak##_##o = o;
+#else
+#define DYFWeakObject(o) try {} @finally {} __block __typeof(o) weak##_##o = o;
+#endif
 #endif
 
 // Resolving block circular reference - __strong (arc)
 #ifndef DYFStrongObject
-    #if __has_feature(objc_arc)
-        #define DYFStrongObject(o) try {} @finally {} __strong __typeof(o) strong##_##o = weak##_##o;
-    #else
-        #define DYFStrongObject(o) try {} @finally {} __typeof(o) strong##_##o = weak##_##o;
-    #endif
+#if __has_feature(objc_arc)
+#define DYFStrongObject(o) try {} @finally {} __strong __typeof(o) strong##_##o = weak##_##o;
+#else
+#define DYFStrongObject(o) try {} @finally {} __typeof(o) strong##_##o = weak##_##o;
+#endif
 #endif
 
 // 创建二维码时，中间头像的宽和高

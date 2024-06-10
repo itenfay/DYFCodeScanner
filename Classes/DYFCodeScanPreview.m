@@ -1,8 +1,8 @@
 //
 //  DYFCodeScanPreview.m
 //
-//  Created by dyf on 2018/01/28.
-//  Copyright © 2018 dyf. All rights reserved.
+//  Created by Tenfay on 2018/01/28.
+//  Copyright © 2018 Tenfay. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -265,7 +265,6 @@
             !DYFRespondsToMethod(self.delegate, back) ?: [self.delegate back];
             break;
         }
-            
         case 1: {
             DYFLog(@"hasTorch: %d", self.hasTorch);
             if (self.hasTorch) {
@@ -279,17 +278,14 @@
             }
             break;
         }
-            
         case 2: {
             !DYFRespondsToMethod(self.delegate, openPhotoLibrary) ?: [self.delegate openPhotoLibrary];
             break;
         }
-            
         case 3: {
             !DYFRespondsToMethod(self.delegate, queryHistory) ?: [self.delegate queryHistory];
             break;
         }
-            
         default:
             break;
     }

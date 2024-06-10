@@ -1,21 +1,21 @@
 <div align=center>
-<img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/CodeScanner.png" width="90%">
+<img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/CodeScanner.png" width="50%">
 </div>
 
-[如果此项目能帮助到你，就请你给一颗星。谢谢！(If this project can help you, please give it a star. Thanks!)](https://github.com/chenxing640/DYFCodeScanner)
-
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
-[![CocoaPods](http://img.shields.io/cocoapods/v/DYFCodeScanner.svg?style=flat)](http://cocoapods.org/pods/DYFCodeScanner)&nbsp;
-![CocoaPods](http://img.shields.io/cocoapods/p/DYFCodeScanner.svg?style=flat)&nbsp;
+如果能帮助到你，请你给[一颗星](https://github.com/itenfay/DYFCodeScanner)，谢谢！(If this can help you, please give it a [star](https://github.com/itenfay/DYFCodeScanner), Thanks!)
 
 ## DYFCodeScanner
 
 一个简单的二维码和条码扫描器，有一套自定义的扫描动画以及界面，支持相机缩放，还可以生成和识别二维码。(A simple QR code and barcode scanner, which has a set of custom scanning animation and interface, supports camera zooming, and can generate and identify QR code.)
 
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](LICENSE)&nbsp;
+[![CocoaPods](http://img.shields.io/cocoapods/v/DYFCodeScanner.svg?style=flat)](http://cocoapods.org/pods/DYFCodeScanner)&nbsp;
+![CocoaPods](http://img.shields.io/cocoapods/p/DYFCodeScanner.svg?style=flat)&nbsp;
+
 ## Group (ID:614799921)
 
 <div align=left>
-&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/g614799921.jpg" width="30%" />
+&emsp; <img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/g614799921.jpg" width="30%" />
 </div>
 
 ## Installation
@@ -23,20 +23,19 @@
 Using [CocoaPods](https://cocoapods.org):
 
 ```
-pod 'DYFCodeScanner', '~> 1.2.1'
+pod 'DYFCodeScanner'
 ```
 
 Or
 
 ```
-# Install lastest version.
-pod 'DYFCodeScanner'
+pod 'DYFCodeScanner', '~> 1.3.0'
 ```
 
 ## Preview
 
 <div align=left>
-&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
+&emsp; <img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/CodeScannerPreview.gif" width="30%" />
 </div>
 
 ## Usage
@@ -44,7 +43,7 @@ pod 'DYFCodeScanner'
 - 添加隐私 (Add Privacy)
 
 <div align=left>
-&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
+&emsp; <img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/camera_photo_privacy.png" width="80%" />
 </div>
 
 ```
@@ -64,8 +63,8 @@ pod 'DYFCodeScanner'
 
 - 扫描二维码/条形码 (Scanning QRcode / Barcode) 
 
-1. 支持push和模态两种场景过渡。 (Supporting push or modal transition.)  <br />
-2. 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.) <br />
+1. 支持push和模态两种场景过渡。 (Supporting push or modal transition.)  <br>
+2. 根据项目的需求，选择之一即可。(According to the needs of the project, you can choose one of them.) <br>
 3. 当你要推进视图控制器，你可以选择隐藏或者不隐藏导航条。(When you want to push the view controller, you can choose to or not to hide the navigation bar.)
 
 ```
@@ -108,7 +107,7 @@ pod 'DYFCodeScanner'
 1. 生成带中心图像的二维码 (Generating QR code that contains center image)
 
 <div align=left>
-&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
+&emsp; <img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/2051832951.jpg" width="30%" />
 </div>
 
 ```
@@ -122,7 +121,7 @@ pod 'DYFCodeScanner'
 2. 生成带颜色的二维码 (Generating QR code that contains backgroudColor and foregroudColor)
 
 <div align=left>
-&emsp; <img src="https://github.com/chenxing640/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
+&emsp; <img src="https://github.com/itenfay/DYFCodeScanner/raw/master/images/1890129771.jpg" width="30%" />
 </div>
 
 ```
@@ -136,7 +135,7 @@ pod 'DYFCodeScanner'
 3.  生成带中心图像颜色的二维码 (Generating QR code that contains center image, backgroudColor and foregroudColor)
 
 ```
-DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(30, 88, 200, 200) stringValue:@"https://github.com/chenxing640/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
+DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(30, 88, 200, 200) stringValue:@"https://github.com/itenfay/DYFAuthIDAndGestureLock" backgroudColor:[UIColor grayColor] foregroudColor:[UIColor greenColor] centerImage:[UIImage imageNamed:@"cat49334.jpg"]];
 [self.view addSubview:imageView];
 ```
 
@@ -152,6 +151,7 @@ DYFQRCodeImageView *imageView = [DYFQRCodeImageView createWithFrame:CGRectMake(3
 }
 ```
 
-## Code Sample
+## Sample
 
-- [Code Sample Portal](https://github.com/chenxing640/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
+- [Code Sample Portal](https://github.com/itenfay/DYFCodeScanner/blob/master/Basic%20Files/ViewController.m)
+
