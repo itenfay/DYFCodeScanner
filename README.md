@@ -29,7 +29,7 @@ pod 'DYFCodeScanner'
 Or
 
 ```
-pod 'DYFCodeScanner', '~> 1.3.0'
+pod 'DYFCodeScanner', '~> 1.3.1'
 ```
 
 ## Preview
